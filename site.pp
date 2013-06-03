@@ -1,4 +1,6 @@
-node 'debian-7' {
-	class{'nginx':}
+node 'ubuntu-12' {
+  class{'nginx':
+    version => '1.4.1',
+  }
 }
 

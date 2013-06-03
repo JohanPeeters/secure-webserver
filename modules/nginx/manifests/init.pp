@@ -1,6 +1,11 @@
-class nginx ($host = 'secappdev.org'){
+class nginx ($version, $host = 'secappdev.org'){
+  # in order to install reasonably recent versions of nginx,
+  # impervious to recent security advisories,
+  # we need to add an apt repository.
+  
+
   package {'nginx':
-    ensure => '1.2.1-2.2',
+    ensure => $version
   }
   file {'/etc/nginx/sites-enabled/default':
    ensure => absent,
