@@ -1,4 +1,4 @@
-node 'Debian-7' {
+node 'debian-7' {
 	class{'nginx':}
 }
 
