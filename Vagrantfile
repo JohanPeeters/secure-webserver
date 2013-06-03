@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
   # 
-  #config.vm.provision :shell, :path => "bootstrap.sh"
+  config.vm.provision :shell, :path => "bootstrap.sh"
   #
   # View the documentation for the provider you're using for more
   # information on available options.
