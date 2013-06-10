@@ -1,11 +1,12 @@
 node 'ubuntu-12' {
 	class{'nginx':
-		version => '1.4.1-1~precise',
+		version => '1.5.1-1~precise',
 		host    => 'localhost',
 		require => Apt::Source['nginx'],
 	}
+	
 	apt::source { 'nginx':
-		location                => 'http://nginx.org/packages/ubuntu/',
+		location                => 'http://nginx.org/packages/mainline/ubuntu/',
 		release               => 'precise',
 		repos               => 'nginx',
 		#required_packages => 'debian-keyring debian-archive-keyring',

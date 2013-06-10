@@ -2,6 +2,7 @@
 
 echo 'updating apt-get packages'
 apt-get update
+apt-get upgrade
 echo 'installing rubygems'
 apt-get -y install rubygems=1.8.15-1ubuntu0.1
 echo 'installing puppet'
