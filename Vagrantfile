@@ -76,6 +76,8 @@ Vagrant.configure("2") do |config|
      puppet.manifest_file  = "site.pp"
   end
 
+  config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
+
   config.vm.provision :shell, :path => "sanity-test.sh"
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
