@@ -1,0 +1,1 @@
+sudo puppet apply site.pp --modulepath modules/:/home/vagrant/.puppet/modules:/usr/share/puppet/modules:/etc/puppet/modules/
