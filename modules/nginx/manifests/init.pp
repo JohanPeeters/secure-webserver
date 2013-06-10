@@ -8,17 +8,6 @@ class nginx ($version, $host){
 		ensure => $version
 	}
 	
-	group { 'www-data' :
-		ensure => present,
-	}
-
-	user { 'www-data' :
-		ensure 		=> present,
-		managehome 	=> false,
-		gid 		=> 'www-data',
-		require 	=> Group['www-data'],
-	}
-	
 	file {"/etc/nginx/sites-available":
 		ensure => directory,
 	}
