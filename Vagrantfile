@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
   # 
-  config.vm.provision :shell, :path => "bootstrap.sh"
+  config.vm.provision :shell, :path => "production/bootstrap.sh"
   #
   # View the documentation for the provider you're using for more
   # information on available options.
@@ -71,10 +71,12 @@ Vagrant.configure("2") do |config|
   # # }
   #
   config.vm.provision :puppet do |puppet|
-     puppet.module_path = "modules"
-     puppet.manifests_path = "."
+     puppet.module_path = "production/modules"
+     puppet.manifests_path = "production/manifests"
      puppet.manifest_file  = "site.pp"
   end
+
+  config.vm.provision :shell, :path => "sanity-test.sh"
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding

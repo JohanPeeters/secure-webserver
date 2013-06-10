@@ -2,8 +2,7 @@ class nginx ($version, $host){
 	# in order to install reasonably recent versions of nginx,
 	# impervious to recent security advisories,
 	# we need to add an apt repository.
-
-
+ 
 	package {'nginx':
 		ensure => $version
 	}
