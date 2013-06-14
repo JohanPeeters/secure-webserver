@@ -1,1 +1,2 @@
-sudo puppet apply production/manifests/site.pp --modulepath production/modules/:/home/vagrant/.puppet/modules:/usr/share/puppet/modules:/etc/puppet/modules/
+PUPPET_SCRIPTS=/vagrant/production
+sudo puppet apply $PUPPET_SCRIPTS/manifests/site.pp --modulepath $PUPPET_SCRIPTS/modules/:/home/vagrant/.puppet/modules:/usr/share/puppet/modules:/etc/puppet/modules/
