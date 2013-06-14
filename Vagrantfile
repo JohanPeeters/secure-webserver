@@ -78,7 +78,11 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
 
-  config.vm.provision :shell, :path => "sanity-test.sh"
+  config.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"
+  config.vm.provision :shell do |s|
+		s.path = "sanity-test.sh"
+		s.args = "/vagrant"
+  end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
