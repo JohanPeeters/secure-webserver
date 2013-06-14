@@ -1,4 +1,4 @@
-node 'ubuntu-12' {
+node default {
 #	class{'nginx':
 #		version => '1.5.1-1~precise ',
 #		host    => 'localhost',
