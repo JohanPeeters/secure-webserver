@@ -7,5 +7,5 @@ else
 fi	
 
 echo "** running sanity tests **"
-rspec $VAGRANT_BASE/spec/nginx.rb
-rspec $VAGRANT_BASE/spec/csr.rb
+sudo rspec $VAGRANT_BASE/spec/nginx.rb
+sudo rspec $VAGRANT_BASE/spec/csr.rb
