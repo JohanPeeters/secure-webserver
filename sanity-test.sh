@@ -9,3 +9,4 @@ fi
 echo "** running sanity tests **"
 sudo rspec $VAGRANT_BASE/spec/nginx.rb
 sudo rspec $VAGRANT_BASE/spec/csr.rb
+sudo rspec $VAGRANT_BASE/spec/ca.rb
