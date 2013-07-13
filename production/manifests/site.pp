@@ -26,5 +26,14 @@ node default {
 		#pin                => '-10',
 		include_src      => false
 	}
+	
+	file{'/etc/ssl/':
+			ensure => directory;
+		'/etc/ssl/certs/':
+			ensure => directory;
+		'/etc/ssl/private/':
+			ensure => directory;
+	}
+			
 }
 

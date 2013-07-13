@@ -26,13 +26,13 @@ class nginx ($version, $host){
 		content => template('nginx/host.conf.erb'),
 		require => Package['nginx']
 	}
-	file {"/etc/nginx/sites-enabled/$host":
+	file {"/etc/nginx/sites-enabled/$host.conf":
 		ensure => link,
 		target => "/etc/nginx/sites-available/$host"
 	}
 	service {'nginx':
 		ensure => running,
 		enable => true,
-		subscribe => File["/etc/nginx/sites-available/$host"],
+		subscribe => File["/etc/nginx/sites-enabled/$host.conf"],
 	}
 }

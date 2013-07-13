@@ -2,8 +2,8 @@ echo "** Generating private key"
 
 HOSTNAME=localhost
 VALIDITY_PERIOD=365
-CERT_LOCATION=/etc/nginx/cert
-KEY_LOCATION=$CERT_LOCATION/private
+CERT_LOCATION=/etc/ssl/certs
+KEY_LOCATION=/etc/ssl/private
 
 umask -S u=rw,go=
 mkdir -p $KEY_LOCATION

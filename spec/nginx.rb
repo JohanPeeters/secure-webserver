@@ -8,4 +8,10 @@ describe "nginx" do
 	# Shortcut
 	response = Net::HTTP.get_response(uri)
   end
+  
+  it "is running on https" do
+    uri = URI.parse("https://localhost/")
+	# Shortcut
+	response = Net::HTTP.get_response(uri)
+  end
 end

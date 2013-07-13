@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 443, host: 8443
   # TODO: when we are ready to start testing the web server, we have to do this
 
   # Create a private network, which allows host-only access to the machine
@@ -77,6 +78,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
+  config.vm.provision :shell, :path => "ca/become-ca.sh"
+  config.vm.provision :shell, :inline => "cd /vagrant/ca;./sign-crt.sh"
 
   config.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"
   config.vm.provision :shell do |s|
