@@ -79,7 +79,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
   config.vm.provision :shell, :path => "ca/become-ca.sh"
-  config.vm.provision :shell, :inline => "cd /vagrant/ca;./sign-crt.sh"
+  config.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
 
   config.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"
   config.vm.provision :shell do |s|

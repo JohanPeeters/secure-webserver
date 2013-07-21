@@ -1,13 +1,7 @@
 node default {
-#	class{'nginx':
-#		version => '1.5.1-1~precise ',
-#		host    => 'localhost',
-#		require => Apt::Source['nginx'],
-#	}
-#	
 
 	class{'nginx':
-		version => '1.4.1-1~precise',
+		version => '1.4.2-1~precise',
 		host    => 'localhost',
 		require => Apt::Source['nginx'],
 	}

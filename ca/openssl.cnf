@@ -1,0 +1,17 @@
+[ ca ]
+default_ca      = CA_default            # The default ca section
+
+[ CA_default ]
+
+dir             = .
+database	= $dir/index.txt
+serial		= $dir/serial
+
+[ all_optional ]
+
+countryName            = optional
+stateOrProvinceName    = optional
+organizationName       = optional
+organizationalUnitName = optional
+commonName             = optional
+emailAddress           = optional
