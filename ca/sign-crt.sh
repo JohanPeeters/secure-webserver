@@ -5,6 +5,9 @@ if [ -n "$1" ]; then
 	CSR="$1";
 fi
 
+rm index.txt
+touch index.txt
+
 openssl ca -config openssl.cnf \
 	-days 365 \
 	-in $CSR \
@@ -13,4 +16,7 @@ openssl ca -config openssl.cnf \
 	-outdir /etc/ssl/certs \
 	-out /etc/ssl/certs/certsigned.crt \
 	-policy all_optional \
-	-md sha1
+	-md sha1 <<Responses
+y
+y
+Responses
