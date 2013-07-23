@@ -6,7 +6,10 @@ class nginx ($version, $host){
 	package {'nginx':
 		ensure => $version
 	}
-	
+	file {"/etc/nginx/nginx.conf":
+		source  => "puppet:///modules/nginx/nginx.conf",
+		require => Package['nginx'],
+	}
 	file {"/etc/nginx/sites-available":
 		ensure => directory,
 	}

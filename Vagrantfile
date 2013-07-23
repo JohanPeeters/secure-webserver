@@ -71,15 +71,16 @@ Vagrant.configure("2") do |config|
   # #               Managed by Puppet.\n"
   # # }
   #
+
+  config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
+  config.vm.provision :shell, :path => "ca/become-ca.sh"
+  config.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
+
   config.vm.provision :puppet do |puppet|
      puppet.module_path = "production/modules"
      puppet.manifests_path = "production/manifests"
      puppet.manifest_file  = "site.pp"
   end
-
-  config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
-  config.vm.provision :shell, :path => "ca/become-ca.sh"
-  config.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
 
   config.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"
   config.vm.provision :shell do |s|

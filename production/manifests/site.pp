@@ -6,19 +6,11 @@ node default {
 		require => Apt::Source['nginx'],
 	}
 	
-	package{'openssl':
-		ensure => installed,
-	}
-	
 	apt::source { 'nginx':
-		location                => 'http://nginx.org/packages/ubuntu/',
-		release               => 'precise',
-		repos               => 'nginx',
-		#required_packages => 'debian-keyring debian-archive-keyring',
-		#key                    => '55BE302B',
-		#key_server           => 'subkeys.pgp.net',
-		#pin                => '-10',
-		include_src      => false
+		location    => 'http://nginx.org/packages/ubuntu/',
+		release     => 'precise',
+		repos       => 'nginx',
+		include_src => false
 	}
 	
 	file{'/etc/ssl/':
