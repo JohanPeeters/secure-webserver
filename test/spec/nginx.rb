@@ -26,7 +26,7 @@ describe "nginx" do
 	response = http.request(request)
 	
 	
-	file = File.open("/vagrant/test/modules/httpsdemo/files/www/nginx-default/index.html", "rb")
+	file = File.open("/vagrant/test/modules/httpsdemo/files/www/localhost/index.html", "rb")
 	contents = file.read
 	
 	
