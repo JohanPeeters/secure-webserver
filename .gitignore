@@ -5,3 +5,4 @@
 .tmp/
 ca/index.txt*
 ca/serial*
+.idea
