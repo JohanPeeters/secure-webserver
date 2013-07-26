@@ -25,17 +25,20 @@ class nginx ($version, $host){
 		ensure => absent,
 		require => File['/etc/nginx/sites-enabled/default'],
 	}
+	
 	file {"/etc/nginx/sites-available/$host":
 		ensure => present,
 		content => template('nginx/host.conf.erb'),
 		require => Package['nginx'],
 		notify => Service['nginx'],
 	}
+	
 	file {"/etc/nginx/sites-enabled/$host.conf":
 		ensure => link,
 		target => "/etc/nginx/sites-available/$host",
 		notify => Service['nginx'],
 	}
+	
 	service {'nginx':
 		ensure => running,
 		enable => true,
