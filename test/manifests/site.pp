@@ -13,13 +13,8 @@ node default {
 		include_src => false
 	}
 	
-	file{'/etc/ssl/':
-			ensure => directory;
-		'/etc/ssl/certs/':
-			ensure => directory;
-		'/etc/ssl/private/':
-			ensure => directory;
-	}
+	include httpsdemo
+	
 			
 }
 

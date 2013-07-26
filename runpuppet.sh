@@ -1,5 +1,5 @@
 #!/bin/bash  
 
-#PUPPET_SCRIPTS=/vagrant/production
-PUPPET_SCRIPTS=$(dirname $0)/production
-sudo puppet apply $PUPPET_SCRIPTS/manifests/site.pp --modulepath $PUPPET_SCRIPTS/modules/:/home/vagrant/.puppet/modules:/usr/share/puppet/modules:/etc/puppet/modules/
+PUPPET_PROD=$(dirname $0)/production
+PUPPET_TEST=$(dirname $0)/test
+sudo puppet apply $PUPPET_TEST/manifests/site.pp --modulepath  $PUPPET_TEST/modules/:$PUPPET_PROD/modules/:/home/vagrant/.puppet/modules:/usr/share/puppet/modules:/etc/puppet/modules/

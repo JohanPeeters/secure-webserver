@@ -77,15 +77,15 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
 
   config.vm.provision :puppet do |puppet|
-     puppet.module_path = "production/modules"
-     puppet.manifests_path = "production/manifests"
+     puppet.module_path = ["production/modules","test/modules"]
+     puppet.manifests_path = "test/manifests"
      puppet.manifest_file  = "site.pp"
   end
 
   config.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"
   config.vm.provision :shell do |s|
 		s.path = "sanity-test.sh"
-		s.args = "/vagrant"
+		s.args = "/vagrant/test"
   end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles

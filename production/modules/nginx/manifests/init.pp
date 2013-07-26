@@ -9,6 +9,7 @@ class nginx ($version, $host){
 	file {"/etc/nginx/nginx.conf":
 		source  => "puppet:///modules/nginx/nginx.conf",
 		require => Package['nginx'],
+		notify => Service['nginx'],
 	}
 	file {"/etc/nginx/sites-available":
 		ensure => directory,
@@ -27,15 +28,16 @@ class nginx ($version, $host){
 	file {"/etc/nginx/sites-available/$host":
 		ensure => present,
 		content => template('nginx/host.conf.erb'),
-		require => Package['nginx']
+		require => Package['nginx'],
+		notify => Service['nginx'],
 	}
 	file {"/etc/nginx/sites-enabled/$host.conf":
 		ensure => link,
-		target => "/etc/nginx/sites-available/$host"
+		target => "/etc/nginx/sites-available/$host",
+		notify => Service['nginx'],
 	}
 	service {'nginx':
 		ensure => running,
 		enable => true,
-		subscribe => File["/etc/nginx/sites-enabled/$host.conf"],
 	}
 }
