@@ -29,7 +29,9 @@ nginx error handling -- nginx-default?
 
 Use puppet resources for instanciating new servers in the nginx conf
 
-
+----
+sudo cpan Config::IniFiles
+sudo cpan IO::Socket::SSL.pm
 
 
 
