@@ -3,5 +3,5 @@
 .vagrant/
 .DS_Store
 .tmp/
-ca/index.txt.*
-ca/serial.*
+ca/index.txt*
+ca/serial*
