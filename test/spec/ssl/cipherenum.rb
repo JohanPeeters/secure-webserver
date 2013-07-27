@@ -1,4 +1,4 @@
-#!/home/vagrant/.rvm/rubies/ruby-2.0.0-p247/bin/ruby --enable-opensslv2
+#! /usr/local/bin/ruby
 
 require 'net/https'
 

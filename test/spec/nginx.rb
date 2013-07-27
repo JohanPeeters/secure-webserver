@@ -10,12 +10,6 @@ describe "nginx" do
 	response = Net::HTTP.get_response(uri)
   end
   
-  it "is running on https" do
-    uri = URI.parse("https://localhost/")
-	# Shortcut
-	response = Net::HTTP.get_response(uri)
-  end
-  
   it "serves the welcome page" do
     uri = URI.parse("https://localhost/")
     
@@ -28,9 +22,6 @@ describe "nginx" do
 	
 	file = File.open("/vagrant/test/modules/httpsdemo/files/www/localhost/index.html", "rb")
 	contents = file.read
-	
-	
-	
 	
 	response.body.should eq(contents)
   end
