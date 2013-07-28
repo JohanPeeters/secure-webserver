@@ -1,8 +1,4 @@
 *~
-*.swp
-.vagrant/
-.DS_Store
-.tmp/
 ca/index.txt*
 ca/serial*
-.idea
+.*
