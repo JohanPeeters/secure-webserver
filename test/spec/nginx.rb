@@ -1,7 +1,7 @@
 require "net/http"
 require "net/https"
 require "uri"
-require "./ssl/cipherenum"
+require "/vagrant/test/spec/ssl/cipherenum"
 
 
 describe "nginx" do
