@@ -1,6 +1,6 @@
 Ruby debian package maken offline (niet tijdens boot)
 
-cleanup test for cipher suites
+cleanup test for cipher suites 
 
 update TLS/ciphers/mode/hashes according to presentation of Thomas
 
@@ -32,6 +32,16 @@ verify hostnames between nginx and certificate + virtual hosts (see presentation
 tests for checking the certificate of the website (see presentation Thomas, page 6, slide 12)
 
 stdin: is not a tty
+
+------- non prioritized ----
+
+Fix issue, lacking serving http page (nginx config problem?)
+
+Sha1 in certificate signing?
+
+openssl check certificate, verify if all parameters are correct
+
+
 
 
 
