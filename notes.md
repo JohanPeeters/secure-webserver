@@ -9,12 +9,10 @@ verify ordering of ciphers and protocols
 
 investigate difference between test certificate and production certificate
 
-Disable TLS compression (crime attack)
-
-TLS/SSL-only sites (Thomas)
-
 Install on "production" server
 Validate with SSL labs tool
+
+TLS/SSL-only sites (Thomas)
 
 ------ less essential ----
 
@@ -45,6 +43,16 @@ investigate if existing nginx module can be used
 stdin: is not a tty
 
 ------- non prioritized ----
+
+
+
+
+
+
+
+
+
+
 
 
 
