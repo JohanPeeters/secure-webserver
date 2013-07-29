@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ROOT_DIR=`dirname $0`/..
+ROOT_DIR=/vagrant
 echo '** updating apt-get packages'
 apt-get update
 echo '** all versions of Ruby available on Ubuntu or Debian via official apt-get repositories are known to be insecure'
