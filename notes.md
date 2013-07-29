@@ -1,22 +1,13 @@
 cleanup test for cipher suites 
 verify list of cipher suites to support
 select correct list of cipher suites in nginx
-
-tests for checking the certificate of the website (see presentation Thomas, page 6, slide 12)
-
-Sha1 in certificate signing?
-
 Prioritize for RC4 (mitigate beast)
 
 verify ordering of ciphers and protocols
 
-Deploy HTTP Strict Transport security
-
 ------ After start of presentation / demo
 
 investigate difference between test certificate and production certificate
-
-Protect private key of server
 
 Disable TLS compression (crime attack)
 
