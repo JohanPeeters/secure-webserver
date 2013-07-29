@@ -8,11 +8,17 @@ if [ ! -d /ca ]; then
 fi
 cd /ca
 
+#For securing the key
+umask -S u=rw,go=
+
 echo "*generating certificate request"
 openssl genpkey -algorithm rsa \
 	-out /vagrant/ca/ca_key.key \
 	-pkeyopt rsa_keygen_bits:2048 \
 	-pkeyopt rsa_keygen_pubexp:0x100000001 \
+
+#Setting back the default settings
+umask 0002
 	
 echo "*creating a self-signed certificate"	
 openssl req -new -x509 -days 1825 \
