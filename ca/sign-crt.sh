@@ -16,7 +16,7 @@ openssl ca -config openssl.cnf \
 	-outdir /etc/ssl/certs \
 	-out /etc/ssl/certs/certsigned.crt \
 	-policy all_optional \
-	-md sha1 <<Responses
+	-md sha256 <<Responses
 y
 y
 Responses
