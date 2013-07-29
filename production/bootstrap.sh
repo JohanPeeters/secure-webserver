@@ -1,6 +1,10 @@
 #!/bin/bash
 
-ROOT_DIR=/vagrant
+if [ "$1" != "" ]; then
+	ROOT_DIR="$1"
+else
+	ROOT_DIR=$(dirname $0)/..
+fi
 echo '** updating apt-get packages'
 apt-get update
 echo '** all versions of Ruby available on Ubuntu or Debian via official apt-get repositories are known to be insecure'

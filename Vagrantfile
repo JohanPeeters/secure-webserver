@@ -48,29 +48,10 @@ Vagrant.configure("2") do |config|
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
   # 
-  config.vm.provision :shell, :path => "production/bootstrap.sh"
-  #
-  # View the documentation for the provider you're using for more
-  # information on available options.
-
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  # You will need to create the manifests directory and a manifest in
-  # the file Debian-7.0-32bit.pp in the manifests_path directory.
-  #
-  # An example Puppet manifest to provision the message of the day:
-  #
-  # # group { "puppet":
-  # #   ensure => "present",
-  # # }
-  # #
-  # # File { owner => 0, group => 0, mode => 0644 }
-  # #
-  # # file { '/etc/motd':
-  # #   content => "Welcome to your Vagrant-built virtual machine!
-  # #               Managed by Puppet.\n"
-  # # }
-  #
+  config.vm.provision :shell do |s|
+		s.path = 'production/bootstrap.sh'
+		s.args = '/vagrant'
+  end
 
   config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
   config.vm.provision :shell, :path => "ca/become-ca.sh"
