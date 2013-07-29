@@ -11,8 +11,8 @@ touch index.txt
 openssl ca -config openssl.cnf \
 	-days 365 \
 	-in $CSR \
-	-keyfile /ca/ca_key.key \
-	-cert /ca/ca_cert.crt \
+	-keyfile /vagrant/ca/ca_key.key \
+	-cert /vagrant/ca/ca_cert.crt \
 	-outdir /etc/ssl/certs \
 	-out /etc/ssl/certs/certsigned.crt \
 	-policy all_optional \
