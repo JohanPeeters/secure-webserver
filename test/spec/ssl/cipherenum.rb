@@ -13,7 +13,7 @@ module Net
       @ssl_context &&= OpenSSL::SSL::SSLContext.new(value)
     end
 
-#		ssl_context_accessor :ciphers 
+#		ssl_context_accessor :ciphers
   end
 end
 
@@ -23,7 +23,7 @@ module Ciphers
   port = 443
   @@accepted_ciphers = []
   @@rejected_ciphers = []
-  protocol_versions = [:SSLv3, :TLSv1, :TLSv1_2, :TLSv1_1] # Protocol versions support
+  protocol_versions = [:SSLv3, :TLSv1, :TLSv1_1, :TLSv1_2] # Protocol versions support
 
   def self.accepted_ciphers
     @@accepted_ciphers
@@ -47,10 +47,10 @@ module Ciphers
       request.verify_mode = OpenSSL::SSL::VERIFY_NONE
       begin
         response = request.get("/")
-        @@accepted_ciphers << "#{version}-#{cipher_name}"
+        @@accepted_ciphers << "#{cipher_name}"
         puts "[+] Accepted\t #{bits} bits\t#{cipher_name}"
       rescue OpenSSL::SSL::SSLError => e
-        @@rejected_ciphers << "#{version}-#{cipher_name}"
+        @@rejected_ciphers << "#{cipher_name}"
         puts "[-] Rejected\t #{bits} bits\t#{cipher_name}"
       rescue #Ignore all other Exceptions
       end
