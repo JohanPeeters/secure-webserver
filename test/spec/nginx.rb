@@ -117,20 +117,21 @@ describe "nginx" do
 =end
   end
 
-  cipher_facts = `openssl ciphers -v`.split(/\n/)
-                                    .map {|spec| l = spec.split}
-
+  it 'only supports encryption keys that are at least 128 bits long' do
+    do_not_include{|cipher_spec| cipher_spec.encryption_bits < 128}
+  end
 
   it 'does not support DES encryption' do
-    specs_to_avoid = cipher_facts.select{|line| line[4].start_with?('Enc=DES')}
-                                        .map{|line| line[0]}
-    puts "specs to avoid are #{specs_to_avoid}"
-    Ciphers::accepted_ciphers.should_not include(*specs_to_avoid)
+    do_not_include{|cipher_spec| cipher_spec.encryption_alg == 'DES'}
   end
 
   it 'does not support export strength encryption' do
-    specs_to_avoid = cipher_facts.select{|line| line.size > 6?line[6].eql?('export'):false}
-                                    .map{|line| line[0]}
+    do_not_include{|cipher_spec| cipher_spec.strength == 'export'}
+  end
+
+  def do_not_include(&fn)
+    specs_to_avoid = Ciphers::CipherTable::CIPHERS.select(&fn)
+          .map{|cipher_spec| cipher_spec.name}
     puts "specs to avoid are #{specs_to_avoid}"
     Ciphers::accepted_ciphers.should_not include(*specs_to_avoid)
   end
