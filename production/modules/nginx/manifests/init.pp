@@ -11,6 +11,9 @@ class nginx ($version, $host){
 		require => Package['nginx'],
 		notify => Service['nginx'],
 	}
+	file {"/etc/nginx":
+		ensure => directory,
+	}
 	file {"/etc/nginx/sites-available":
 		ensure => directory,
 	}

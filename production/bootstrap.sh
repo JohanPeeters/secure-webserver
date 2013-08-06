@@ -5,8 +5,6 @@ if [ "$1" != "" ]; then
 else
 	ROOT_DIR=$(dirname $0)/..
 fi
-echo '** updating apt-get packages'
-apt-get update
 echo '** all versions of Ruby available on Ubuntu or Debian via official apt-get repositories are known to be insecure'
 echo 'so install from source.'
 echo 'All ruby versions available on official repositories are Vulnerable to CommonName attack'
