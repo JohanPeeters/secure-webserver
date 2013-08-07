@@ -1,8 +1,12 @@
-cleanup test for cipher suites 
-verify list of cipher suites to support
-select correct list of cipher suites in nginx
-Prioritize for RC4 (mitigate beast)
+test voor forward Secrecy
+test voor RC4
+test voor Beast
+test voor Crime/Breach
+test voor insecure renegotiating
 
+verify list of cipher suites to support
+
+Prioritize for RC4 (mitigate beast)
 verify ordering of ciphers and protocols
 
 ------ After start of presentation / demo
@@ -43,6 +47,14 @@ investigate if existing nginx module can be used
 stdin: is not a tty
 
 ------- non prioritized ----
+
+
+
+MD5 collision ?
+Extended validation?
+
+Testen met backtrack
+
 
 
 

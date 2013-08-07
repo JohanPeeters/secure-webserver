@@ -1,6 +1,10 @@
 echo "** Generating private key"
 
-HOSTNAME=localhost
+if [ "$1" != "" ]; then
+	HOSTNAME="$1"
+else
+	HOSTNAME=localhost
+fi
 VALIDITY_PERIOD=365
 CERT_LOCATION=/etc/ssl/certs
 KEY_LOCATION=/etc/ssl/private

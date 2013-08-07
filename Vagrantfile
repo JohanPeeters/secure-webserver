@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
   # 
   config.vm.provision :shell do |s|
 		s.path = 'production/bootstrap.sh'
-		s.args = '/vagrant'
+		s.args = '/vagrant/production'
   end
 
   config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
