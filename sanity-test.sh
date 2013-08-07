@@ -5,9 +5,10 @@ if [ -n "$1" ]; then
 else 
 	VAGRANT_BASE=$(dirname $0)/test
 fi	
-
+pushd $VAGRANT_BASE
 echo "** running sanity tests **"
-sudo rspec $VAGRANT_BASE/spec/nginx.rb
-sudo rspec $VAGRANT_BASE/spec/csr.rb
-sudo rspec $VAGRANT_BASE/spec/ca.rb
-sudo rspec $VAGRANT_BASE/spec/crt.rb
+sudo rspec spec/nginx.rb
+sudo rspec spec/csr.rb
+sudo rspec spec/ca.rb
+sudo rspec spec/crt.rb
+popd

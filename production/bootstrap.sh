@@ -18,6 +18,9 @@ fi
 echo '** installing puppet'
 gem install --version '= 3.2.1' puppet --no-ri --no-rdoc
 echo '** installing puppet modules'
+	# in order to install reasonably recent versions of nginx,
+	# impervious to recent security advisories,
+	# we need to add an apt repository.
 puppet module install puppetlabs/apt --version 1.2.0
 echo '** installing rspec'
 gem install --version '=2.14.1' rspec --no-ri --no-rdoc

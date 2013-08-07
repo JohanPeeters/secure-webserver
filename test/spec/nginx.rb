@@ -56,67 +56,6 @@ describe "nginx" do
     response = http.request(request)
   end
 
-
-  it "supports only the predefined cipher suites" do
-    accepted = Ciphers::accepted_ciphers
-    accepted.should match_array ["ECDHE-RSA-AES256-SHA", "DHE-RSA-AES256-SHA", "DHE-RSA-CAMELLIA256-SHA", "AES256-SHA", "CAMELLIA256-SHA", "ECDHE-RSA-DES-CBC3-SHA", "EDH-RSA-DES-CBC3-SHA", "DES-CBC3-SHA", "ECDHE-RSA-AES128-SHA", "DHE-RSA-AES128-SHA", "DHE-RSA-CAMELLIA128-SHA", "AES128-SHA", "CAMELLIA128-SHA", "ECDHE-RSA-AES256-SHA", "DHE-RSA-AES256-SHA", "DHE-RSA-CAMELLIA256-SHA", "AES256-SHA", "CAMELLIA256-SHA", "ECDHE-RSA-DES-CBC3-SHA", "EDH-RSA-DES-CBC3-SHA", "DES-CBC3-SHA", "ECDHE-RSA-AES128-SHA", "DHE-RSA-AES128-SHA", "DHE-RSA-CAMELLIA128-SHA", "AES128-SHA", "CAMELLIA128-SHA", "ECDHE-RSA-AES256-SHA", "DHE-RSA-AES256-SHA", "DHE-RSA-CAMELLIA256-SHA", "AES256-SHA", "CAMELLIA256-SHA", "ECDHE-RSA-DES-CBC3-SHA", "EDH-RSA-DES-CBC3-SHA", "DES-CBC3-SHA", "ECDHE-RSA-AES128-SHA", "DHE-RSA-AES128-SHA", "DHE-RSA-CAMELLIA128-SHA", "AES128-SHA", "CAMELLIA128-SHA", "ECDHE-RSA-AES256-SHA", "DHE-RSA-AES256-SHA", "DHE-RSA-CAMELLIA256-SHA", "AES256-SHA", "CAMELLIA256-SHA", "ECDHE-RSA-DES-CBC3-SHA", "EDH-RSA-DES-CBC3-SHA", "DES-CBC3-SHA", "ECDHE-RSA-AES128-SHA", "DHE-RSA-AES128-SHA", "DHE-RSA-CAMELLIA128-SHA", "AES128-SHA", "CAMELLIA128-SHA"]
-
-=begin
-    (["SSLv3-AES128-SHA",
-    							 "SSLv3-AES256-SHA",
-    							 "SSLv3-CAMELLIA128-SHA", 
-								"SSLv3-CAMELLIA256-SHA", 
-								"SSLv3-DES-CBC3-SHA", 
-								"SSLv3-DHE-RSA-AES128-SHA", 
-								"SSLv3-DHE-RSA-AES256-SHA", 
-								"SSLv3-DHE-RSA-CAMELLIA128-SHA", 
-								"SSLv3-DHE-RSA-CAMELLIA256-SHA", 
-								"SSLv3-ECDHE-RSA-AES128-SHA", 
-								"SSLv3-ECDHE-RSA-AES256-SHA", 
-								"SSLv3-ECDHE-RSA-DES-CBC3-SHA", 
-								"SSLv3-EDH-RSA-DES-CBC3-SHA", 
-								"TLSv1-AES128-SHA", 
-								"TLSv1-AES256-SHA", 
-								"TLSv1-CAMELLIA128-SHA", 
-								"TLSv1-CAMELLIA256-SHA", 
-								"TLSv1-DES-CBC3-SHA", 
-								"TLSv1-DHE-RSA-AES128-SHA", 
-								"TLSv1-DHE-RSA-AES256-SHA", 
-								"TLSv1-DHE-RSA-CAMELLIA128-SHA", 
-								"TLSv1-DHE-RSA-CAMELLIA256-SHA", 
-								"TLSv1-ECDHE-RSA-AES128-SHA", 
-								"TLSv1-ECDHE-RSA-AES256-SHA", 
-								"TLSv1-ECDHE-RSA-DES-CBC3-SHA", 
-								"TLSv1-EDH-RSA-DES-CBC3-SHA", 
-								"TLSv1_1-AES128-SHA", 
-								"TLSv1_1-AES256-SHA", 
-								"TLSv1_1-CAMELLIA128-SHA", 
-								"TLSv1_1-CAMELLIA256-SHA", 
-								"TLSv1_1-DES-CBC3-SHA", 
-								"TLSv1_1-DHE-RSA-AES128-SHA", 
-								"TLSv1_1-DHE-RSA-AES256-SHA", 
-								"TLSv1_1-DHE-RSA-CAMELLIA128-SHA", 
-								"TLSv1_1-DHE-RSA-CAMELLIA256-SHA", 
-								"TLSv1_1-ECDHE-RSA-AES128-SHA", 
-								"TLSv1_1-ECDHE-RSA-AES256-SHA", 
-								"TLSv1_1-ECDHE-RSA-DES-CBC3-SHA", 
-								"TLSv1_1-EDH-RSA-DES-CBC3-SHA", 
-								"TLSv1_2-AES128-SHA", 
-								"TLSv1_2-AES256-SHA", 
-								"TLSv1_2-CAMELLIA128-SHA", 
-								"TLSv1_2-CAMELLIA256-SHA", 
-								"TLSv1_2-DES-CBC3-SHA", 
-								"TLSv1_2-DHE-RSA-AES128-SHA", 
-								"TLSv1_2-DHE-RSA-AES256-SHA", 
-								"TLSv1_2-DHE-RSA-CAMELLIA128-SHA", 
-								"TLSv1_2-DHE-RSA-CAMELLIA256-SHA", 
-								"TLSv1_2-ECDHE-RSA-AES128-SHA", 
-								"TLSv1_2-ECDHE-RSA-AES256-SHA", 
-								"TLSv1_2-ECDHE-RSA-DES-CBC3-SHA"
-								])
-=end
-  end
-
   it 'only supports encryption keys that are at least 128 bits long' do
     do_not_include{|cipher_spec| cipher_spec.encryption_bits < 128}
   end
@@ -129,10 +68,19 @@ describe "nginx" do
     do_not_include{|cipher_spec| cipher_spec.strength == 'export'}
   end
 
+  it 'is impervious to the Lucky 13 attack' do
+    do_not_include{|cipher_spec| cipher_spec.mode == 'CBC'}
+  end
+
+  it 'does not support Anonymous Diffie-Hellman' do
+
+  end
+
   def do_not_include(&fn)
     specs_to_avoid = Ciphers::CipherTable::CIPHERS.select(&fn)
           .map{|cipher_spec| cipher_spec.name}
-    puts "specs to avoid are #{specs_to_avoid}"
+    to_be_removed = Ciphers::accepted_ciphers.select{|cipher| specs_to_avoid.include?(cipher)}
+    puts "specs that need to be removed: #{to_be_removed}" unless to_be_removed.empty?
     Ciphers::accepted_ciphers.should_not include(*specs_to_avoid)
   end
 
