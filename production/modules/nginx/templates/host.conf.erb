@@ -11,17 +11,6 @@ server {
 	ssl_certificate  /etc/ssl/certs/certsigned.crt;
 	ssl_certificate_key  /etc/ssl/private/keys.key;
 
-	#ssl_session_timeout  5m;
-
-	ssl_protocols TLSv1.2 TLSv1.1 TLSv1 SSLv3 ; 
-
-	# use the ciphers in order prefered by the server, not by the client
-	ssl_prefer_server_ciphers on;
-	
-	# How to specify the cipher list
-	# http://www.openssl.org/docs/apps/ciphers.html
-
-	ssl_ciphers <%= @cipher_string %>;	
 #	ssl_ciphers  HIGH:!aNULL:!MD5:!DES:!ECDHE-RSA-AES256-SHA:!ECDHE-RSA-AES256-SHA;
 #	ssl_ciphers  -ALL:+HIGH:+MEDIUM:!DES:!ADH:!EXPORT:!EXP:!LOW:!aNull:!NULL:!RC2:!IDEA;
 	

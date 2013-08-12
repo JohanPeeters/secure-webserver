@@ -45,7 +45,7 @@ module Ciphers
       end
 
 	  def to_s
-	  	return "#{protocol_version}\t#{hexcode}\t kx=#{kXchange_alg}\t kxbits=#{kXchange_bits}\tauth=#{authN}\t #{name}\t"
+	  	return "#{protocol_version}\t#{hexcode}\t kx=#{kXchange_alg}\t kxbits=#{kXchange_bits}\tauth=#{authN}\t #{name}\tenc=#{encryption_alg}\tmode=#{mode}"
 	  end
 
       private
@@ -70,8 +70,7 @@ module Ciphers
   	cipher_name = spec.name
   	bits = spec.encryption_bits
   	version = spec.protocol_version
-  
-    output = `openssl s_client -port 443 -cipher #{cipher_name} -CApath /etc/ssl/certs 2>/dev/null << EOF \nGET /\nEOF`
+    output = `openssl s_client -port #{@@port} -cipher #{cipher_name} -CApath /etc/ssl/certs 2>/dev/null << EOF \nGET /\nEOF`
     if output.match(/^\s+Cipher\s+:\s+([\w-]+)$/) then
       @@accepted_ciphers << spec
     else
@@ -87,15 +86,5 @@ module Ciphers
 #      puts spec.to_s
       check_cipher(spec)
    end
-      
-    puts "Accepted ciphers:\n"
-    accepted_ciphers.each do |spec|	
-    	puts "A " + spec.to_s
-    end
-    
-  	puts "Rejected ciphers:\n"
-  	rejected_ciphers.each do |spec|
-  		puts spec.to_s
-  	end
   
 end
