@@ -10,7 +10,6 @@ module Net
       @ssl_context &&= OpenSSL::SSL::SSLContext.new(value)
     end
 
-#		ssl_context_accessor :ciphers
   end
 end
 
@@ -71,9 +70,9 @@ module Ciphers
 
   protocol_versions.each do |version|
     cipher_set = OpenSSL::SSL::SSLContext.new(version).ciphers
-    #puts "\n============================================"
-    #puts version
-    #puts "============================================"
+    puts "\n============================================"
+    puts version
+    puts "============================================"
 
     cipher_set.each do |cipher_name, ignore_me_cipher_version, bits, ignore_me_algorithm_bits|
       request = Net::HTTP.new(target_url, port)
@@ -84,7 +83,7 @@ module Ciphers
       begin
         response = request.get("/")
         @@accepted_ciphers << "#{cipher_name}"
-      #  puts "[+] Accepted\t #{bits} bits\t#{cipher_name}"
+        puts "[+] Accepted\t #{bits} bits\t#{cipher_name}"
       rescue OpenSSL::SSL::SSLError => e
         @@rejected_ciphers << "#{cipher_name}"
       #  puts "[-] Rejected\t #{bits} bits\t#{cipher_name}"
@@ -92,7 +91,6 @@ module Ciphers
       end
     end
   end
-  puts "Accepted ciphers: #{accepted_ciphers}"
-  puts "Rejected ciphers: #{rejected_ciphers}"
-  puts "All ciphers: #{CipherTable::IANA_CIPHERS}"
+  puts "Accepted ciphers:\n #{accepted_ciphers}"
+  puts "Rejected ciphers:\n #{rejected_ciphers}"
 end

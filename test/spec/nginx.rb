@@ -1,7 +1,7 @@
 require "net/http"
 require "net/https"
 require "uri"
-require "/vagrant/test/spec/ssl/cipherenum"
+require "./spec/ssl/cipherenum"
 
 
 describe "nginx" do
@@ -54,6 +54,8 @@ describe "nginx" do
   	http.verify_depth = 5
     request = Net::HTTP::Get.new(uri.request_uri)
     response = http.request(request)
+
+    response.code.should eq('200')
   end
 
   it 'only supports encryption keys that are at least 128 bits long' do
@@ -68,7 +70,7 @@ describe "nginx" do
     do_not_include{|cipher_spec| cipher_spec.strength == 'export'}
   end
 
-  it 'is impervious to the Lucky 13 attack' do
+  it 'is impervious to the Lucky Thirteen attack' do
     do_not_include{|cipher_spec| cipher_spec.mode == 'CBC'}
   end
 
@@ -84,60 +86,4 @@ describe "nginx" do
     Ciphers::accepted_ciphers.should_not include(*specs_to_avoid)
   end
 
-
 end
-
-
-#     accepted.should match_array(["SSLv3-ECDHE-RSA-AES256-SHA", 
-
-#     					"SSLv3-DHE-RSA-AES256-SHA", 
-#     					"SSLv3-DHE-RSA-CAMELLIA256-SHA", 
-#     					"SSLv3-AES256-SHA", 
-#     					"SSLv3-CAMELLIA256-SHA", 
-# #    					"SSLv3-ECDHE-RSA-DES-CBC3-SHA",  			# ???????
-# #    					"SSLv3-EDH-RSA-DES-CBC3-SHA",  			# ???????
-# #    					"SSLv3-DES-CBC3-SHA",  			# ???????
-#     					"SSLv3-ECDHE-RSA-AES128-SHA", 
-#     					"SSLv3-DHE-RSA-AES128-SHA", 
-#     					"SSLv3-DHE-RSA-CAMELLIA128-SHA", 
-#     					"SSLv3-AES128-SHA", 
-#     					"SSLv3-CAMELLIA128-SHA", 
-#     					"TLSv1-ECDHE-RSA-AES256-SHA", 
-#     					"TLSv1-DHE-RSA-AES256-SHA", 
-#     					"TLSv1-DHE-RSA-CAMELLIA256-SHA", 
-#     					"TLSv1-AES256-SHA", 
-#     					"TLSv1-CAMELLIA256-SHA", 
-# #    					"TLSv1-ECDHE-RSA-DES-CBC3-SHA",  			# ???????
-# #    					"TLSv1-EDH-RSA-DES-CBC3-SHA",  			# ???????
-# #    					"TLSv1-DES-CBC3-SHA",  			# ???????
-#     					"TLSv1-ECDHE-RSA-AES128-SHA", 
-#     					"TLSv1-DHE-RSA-AES128-SHA", 
-#     					"TLSv1-DHE-RSA-CAMELLIA128-SHA", 
-#     					"TLSv1-AES128-SHA", 
-#     					"TLSv1-CAMELLIA128-SHA", 
-#     					"TLSv1_2-ECDHE-RSA-AES256-SHA", 
-#     					"TLSv1_2-DHE-RSA-AES256-SHA", 
-#     					"TLSv1_2-DHE-RSA-CAMELLIA256-SHA", 
-#     					"TLSv1_2-AES256-SHA", 
-#     					"TLSv1_2-CAMELLIA256-SHA", 
-# #    					"TLSv1_2-ECDHE-RSA-DES-CBC3-SHA",  			# ???????
-# #    					"TLSv1_2-EDH-RSA-DES-CBC3-SHA",  			# ???????
-# #    					"TLSv1_2-DES-CBC3-SHA",  			# ???????
-#     					"TLSv1_2-ECDHE-RSA-AES128-SHA", 
-#     					"TLSv1_2-DHE-RSA-AES128-SHA", 
-#     					"TLSv1_2-DHE-RSA-CAMELLIA128-SHA", 
-#     					"TLSv1_2-AES128-SHA", 
-#     					"TLSv1_2-CAMELLIA128-SHA", 
-#     					"TLSv1_1-ECDHE-RSA-AES256-SHA", 
-#     					"TLSv1_1-DHE-RSA-AES256-SHA", 
-#     					"TLSv1_1-DHE-RSA-CAMELLIA256-SHA", 
-#     					"TLSv1_1-AES256-SHA", 
-#     					"TLSv1_1-CAMELLIA256-SHA", 
-# #    					"TLSv1_1-ECDHE-RSA-DES-CBC3-SHA",  			# ???????
-# #    					"TLSv1_1-EDH-RSA-DES-CBC3-SHA",	 			# ???????
-# #    					"TLSv1_1-DES-CBC3-SHA", 			# ???????
-#     					"TLSv1_1-ECDHE-RSA-AES128-SHA", 
-#     					"TLSv1_1-DHE-RSA-AES128-SHA", 
-#     					"TLSv1_1-DHE-RSA-CAMELLIA128-SHA", 
-#     					"TLSv1_1-AES128-SHA", 
-#     					"TLSv1_1-CAMELLIA128-SHA"])
