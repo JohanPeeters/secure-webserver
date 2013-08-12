@@ -15,8 +15,8 @@ end
 
 module Ciphers
 
-  target_url = "localhost"
-  port = 443
+  @@target_url = "localhost"
+  @@port = 443
   @@accepted_ciphers = []
   @@rejected_ciphers = []
   protocol_versions = [:SSLv3, :TLSv1, :TLSv1_1, :TLSv1_2] # Protocol versions support
@@ -68,6 +68,16 @@ module Ciphers
 
   end
 
+  def self.check_cipher(cipher_name, bits, version)
+    output = `openssl s_client -port 443 -cipher #{cipher_name} -CApath /etc/ssl/certs  2>/dev/null << EOF \nGET /\nEOF`
+    if output.match(/^\s+Cipher\s+:\s+([\w-]+)$/) then
+      @@accepted_ciphers << "#{cipher_name}"
+      puts "[+] Accepted\t #{bits} bits\t#{cipher_name}"
+    else
+      @@rejected_ciphers << "#{cipher_name}"
+    end
+  end
+
   protocol_versions.each do |version|
     cipher_set = OpenSSL::SSL::SSLContext.new(version).ciphers
     puts "\n============================================"
@@ -75,20 +85,7 @@ module Ciphers
     puts "============================================"
 
     cipher_set.each do |cipher_name, ignore_me_cipher_version, bits, ignore_me_algorithm_bits|
-      request = Net::HTTP.new(target_url, port)
-      request.use_ssl = true
-      request.set_context = version
-      request.ciphers = cipher_name
-      request.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      begin
-        response = request.get("/")
-        @@accepted_ciphers << "#{cipher_name}"
-        puts "[+] Accepted\t #{bits} bits\t#{cipher_name}"
-      rescue OpenSSL::SSL::SSLError => e
-        @@rejected_ciphers << "#{cipher_name}"
-      #  puts "[-] Rejected\t #{bits} bits\t#{cipher_name}"
-      rescue #Ignore all other Exceptions
-      end
+      check_cipher(cipher_name, bits, version)
     end
   end
   puts "Accepted ciphers:\n #{accepted_ciphers}"

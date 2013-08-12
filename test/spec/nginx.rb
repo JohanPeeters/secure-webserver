@@ -1,7 +1,6 @@
 require "net/http"
-#require "net/https"
+require "net/https"
 require "uri"
-require "./spec/ssl/cipherenum"
 
 
 describe "nginx" do
