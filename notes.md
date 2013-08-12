@@ -1,5 +1,5 @@
-test voor forward Secrecy
-test voor RC4
+
+
 test voor Beast
 test voor Crime/Breach
 test voor insecure renegotiating
