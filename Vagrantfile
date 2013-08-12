@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "Ubuntu-12.04.2-64bit-nocm"
-  config.vm.hostname = "ubuntu-12"
+
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -48,26 +48,53 @@ Vagrant.configure("2") do |config|
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
   # 
-  config.vm.provision :shell do |s|
+  
+
+  config.vm.define :naked do |naked|
+      naked.vm.hostname = "ubuntu-12-naked"
+  end
+
+  config.vm.define :prepuppet do |server|
+      server.vm.hostname = "ubuntu-12-prepuppet"
+        
+      server.vm.provision :shell do |s|
 		s.path = 'production/bootstrap.sh'
 		s.args = '/vagrant/production'
+  	  end
+      
+      server.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
+	  server.vm.provision :shell, :path => "ca/become-ca.sh"
+	  server.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
+	  server.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"  
   end
 
-  config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
-  config.vm.provision :shell, :path => "ca/become-ca.sh"
-  config.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
+  config.vm.define :webserver do |server|
+      server.vm.hostname = "ubuntu-12"
+      
+      server.vm.provision :shell do |s|
+		s.path = 'production/bootstrap.sh'
+		s.args = '/vagrant/production'
+  	  end
+      
+      server.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
+	  server.vm.provision :shell, :path => "ca/become-ca.sh"
+	  server.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
+	  server.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"
 
-  config.vm.provision :puppet do |puppet|
-     puppet.module_path = ["production/modules","test/modules"]
-     puppet.manifests_path = "test/manifests"
-     puppet.manifest_file  = "site.pp"
+	  server.vm.provision :puppet do |puppet|
+		 puppet.module_path = ["production/modules","test/modules"]
+		 puppet.manifests_path = "test/manifests"
+		 puppet.manifest_file  = "site.pp"
+	  end
+
+	  server.vm.provision :shell do |s|
+			s.path = "sanity-test.sh"
+			s.args = "/vagrant/test"
+	  end
+      
   end
 
-  config.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"
-  config.vm.provision :shell do |s|
-		s.path = "sanity-test.sh"
-		s.args = "/vagrant/test"
-  end
+  
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
