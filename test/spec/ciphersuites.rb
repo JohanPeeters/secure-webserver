@@ -38,10 +38,6 @@ describe "ciphersuites" do
     do_not_include{|cipher_spec| cipher_spec.mode == 'CBC'}
   end
 
-  it 'does not support Anonymous Diffie-Hellman' do
-
-  end
-
   def do_not_include(&fn)
     specs_to_avoid = Ciphers::CipherTable::CIPHERS.select(&fn)
           .map{|cipher_spec| cipher_spec.name}

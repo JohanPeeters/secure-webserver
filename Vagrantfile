@@ -51,8 +51,8 @@ Vagrant.configure("2") do |config|
       # Create a forwarded port mapping which allows access to a specific port
 	  # within the machine from a port on the host machine. In the example below,
 	  # accessing "localhost:8080" will access port 80 on the guest machine.
-	  server.vm.network :forwarded_port, guest: 80, host: 80080
-	  server.vm.network :forwarded_port, guest: 443, host: 80443
+	  server.vm.network :forwarded_port, guest: 80, host: 9080
+	  server.vm.network :forwarded_port, guest: 443, host: 9443
         
       server.vm.provision :shell do |s|
 		s.path = 'production/bootstrap.sh'
@@ -62,7 +62,6 @@ Vagrant.configure("2") do |config|
       server.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
 	  server.vm.provision :shell, :path => "ca/become-ca.sh"
 	  server.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
-	  server.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"  
   end
 
   config.vm.define :webserver do |server|
@@ -82,7 +81,6 @@ Vagrant.configure("2") do |config|
       server.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
 	  server.vm.provision :shell, :path => "ca/become-ca.sh"
 	  server.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
-	  server.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"
 
 	  server.vm.provision :puppet do |puppet|
 		 puppet.module_path = ["production/modules","test/modules"]
