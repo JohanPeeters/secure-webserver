@@ -8,17 +8,13 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "Ubuntu-12.04.2-64bit-nocm"
-  config.vm.hostname = "ubuntu-12"
+
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210-nocm.box"
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network :forwarded_port, guest: 80, host: 8080
-  config.vm.network :forwarded_port, guest: 443, host: 8443
+  
   # TODO: when we are ready to start testing the web server, we have to do this
 
   # Create a private network, which allows host-only access to the machine
@@ -48,26 +44,58 @@ Vagrant.configure("2") do |config|
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
   # 
-  config.vm.provision :shell do |s|
+  
+  config.vm.define :prepuppet do |server|
+      server.vm.hostname = "ubuntu-12-prepuppet"
+        
+      # Create a forwarded port mapping which allows access to a specific port
+	  # within the machine from a port on the host machine. In the example below,
+	  # accessing "localhost:8080" will access port 80 on the guest machine.
+	  server.vm.network :forwarded_port, guest: 80, host: 9080
+	  server.vm.network :forwarded_port, guest: 443, host: 9443
+        
+      server.vm.provision :shell do |s|
 		s.path = 'production/bootstrap.sh'
 		s.args = '/vagrant/production'
+  	  end
+      
+      server.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
+	  server.vm.provision :shell, :path => "ca/become-ca.sh"
+	  server.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
   end
 
-  config.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
-  config.vm.provision :shell, :path => "ca/become-ca.sh"
-  config.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
+  config.vm.define :webserver do |server|
+      server.vm.hostname = "ubuntu-12"
+      
+      # Create a forwarded port mapping which allows access to a specific port
+	  # within the machine from a port on the host machine. In the example below,
+	  # accessing "localhost:8080" will access port 80 on the guest machine.
+	  server.vm.network :forwarded_port, guest: 80, host: 8080
+	  server.vm.network :forwarded_port, guest: 443, host: 8443
+      
+      server.vm.provision :shell do |s|
+		s.path = 'production/bootstrap.sh'
+		s.args = '/vagrant/production'
+  	  end
+      
+      server.vm.provision :shell, :path => "production/prepare-certificate-request.sh"
+	  server.vm.provision :shell, :path => "ca/become-ca.sh"
+	  server.vm.provision :shell, :inline => "cd /vagrant/ca; ./sign-crt.sh"
 
-  config.vm.provision :puppet do |puppet|
-     puppet.module_path = ["production/modules","test/modules"]
-     puppet.manifests_path = "test/manifests"
-     puppet.manifest_file  = "site.pp"
+	  server.vm.provision :puppet do |puppet|
+		 puppet.module_path = ["production/modules","test/modules"]
+		 puppet.manifests_path = "test/manifests"
+		 puppet.manifest_file  = "site.pp"
+	  end
+
+	  server.vm.provision :shell do |s|
+			s.path = "sanity-test.sh"
+			s.args = "/vagrant/test"
+	  end
+      
   end
 
-  config.vm.provision :shell, :inline => "gem install rspec --no-ri --no-rdoc"
-  config.vm.provision :shell do |s|
-		s.path = "sanity-test.sh"
-		s.args = "/vagrant/test"
-  end
+  
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding

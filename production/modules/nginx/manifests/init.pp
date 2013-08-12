@@ -22,25 +22,31 @@ class nginx ($version, $host){
 	package {'nginx':
 		ensure => $version
 	}
+	
 	file {"/etc/nginx/nginx.conf":
 		ensure => present,
 		content => template('nginx/server.conf.erb'),
 		require => Package['nginx'],
 		notify => Service['nginx'],
 	}
+	
 	file {"/etc/nginx":
 		ensure => directory,
 	}
+	
 	file {"/etc/nginx/sites-available":
 		ensure => directory,
 	}
+	
 	file {"/etc/nginx/sites-enabled":
 		ensure => directory,
 	}
+	
 	file {'/etc/nginx/sites-enabled/default':
 		ensure => absent,
 		require => Package['nginx']
 	}
+	
 	file {'/etc/nginx/sites-available/default':
 		ensure => absent,
 		require => File['/etc/nginx/sites-enabled/default'],

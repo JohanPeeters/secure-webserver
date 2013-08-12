@@ -47,7 +47,6 @@ describe "ciphersuites" do
     do_not_include{|cipher_spec| cipher_spec.kXchange_alg == 'RSA'}
   end
 
-  # @param [Object] fn
   def do_not_include(&fn)
     specs_to_avoid = Ciphers::CipherTable::CIPHERS.select(&fn)
 
@@ -59,6 +58,5 @@ describe "ciphersuites" do
       end
     end
     to_be_removed.should be_empty
-#    Ciphers::accepted_ciphers.should_not include(*specs_to_avoid)
   end
 end
