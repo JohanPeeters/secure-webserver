@@ -1,17 +1,5 @@
 #! /usr/local/bin/ruby
-
-require 'net/https'
 require 'csv'
-
-module Net
-  class HTTP
-    def set_context=(value)
-      @ssl_context = OpenSSL::SSL::SSLContext.new #Create a new context
-      @ssl_context &&= OpenSSL::SSL::SSLContext.new(value)
-    end
-
-  end
-end
 
 module Ciphers
 
@@ -34,7 +22,7 @@ module Ciphers
     attr_reader :CIPHERS
 
     class CipherSpec
-      attr_reader :name, :protocol_version, :kXchange_alg, :kXchange_bits, :authN, :encryption_alg, :encryption_bits, :MAC, :strength, :mode
+      attr_reader :name, :protocol_version, :kXchange_alg, :kXchange_bits, :authN, :encryption_alg, :encryption_bits, :MAC, :strength, :mode, :hexcode
       def initialize(spec)
         @name = spec[2]
         @protocol_version = spec[3]
@@ -52,11 +40,12 @@ module Ciphers
     	end
         @MAC = spec[7].match(/Mac=(\w+)/)[1]
         @strength = spec[8]
+        @hexcode = spec[0]
         @mode = CipherSpec::retrieve_mode(spec[0])
       end
 
 	  def to_s
-	  	return "#{protocol_version} #{name} kx=#{kXchange_alg} kxbits={kXchange_bits} auth=#{authN}"
+	  	return "#{protocol_version}\t#{hexcode}\t kx=#{kXchange_alg}\t kxbits=#{kXchange_bits}\tauth=#{authN}\t #{name}\t"
 	  end
 
       private
@@ -84,23 +73,29 @@ module Ciphers
   
     output = `openssl s_client -port 443 -cipher #{cipher_name} -CApath /etc/ssl/certs 2>/dev/null << EOF \nGET /\nEOF`
     if output.match(/^\s+Cipher\s+:\s+([\w-]+)$/) then
-      @@accepted_ciphers << "#{cipher_name}"
-      puts "[+] Accepted\t #{spec.to_s}"
+      @@accepted_ciphers << spec
     else
-      @@rejected_ciphers << "#{cipher_name}"
+      @@rejected_ciphers << spec
     end
   end
 
-#  protocol_versions.each do |version|
-#    cipher_set = OpenSSL::SSL::SSLContext.new(version).ciphers
-#    puts "\n============================================"
-#    puts version
-#    puts "============================================"
-
-    Ciphers::CipherTable::CIPHERS.each do |spec|
+  def print_ciphers
+  	
+  end
+  
+   Ciphers::CipherTable::CIPHERS.each do |spec|
+#      puts spec.to_s
       check_cipher(spec)
+   end
+      
+    puts "Accepted ciphers:\n"
+    accepted_ciphers.each do |spec|	
+    	puts "A " + spec.to_s
     end
-#  end
-  puts "Accepted ciphers:\n #{accepted_ciphers}"
-  puts "Rejected ciphers:\n #{rejected_ciphers}"
+    
+  	puts "Rejected ciphers:\n"
+  	rejected_ciphers.each do |spec|
+  		puts spec.to_s
+  	end
+  
 end
