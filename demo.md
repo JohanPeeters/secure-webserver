@@ -7,7 +7,7 @@ Demo 1: Demonstrating puppet
 
 - Demonstrate the absence of the correct version of openssl, nginx or any other webserver
 
-    `vagrant ssh prepuppet
+    `vagrant ssh prepuppet \n
     wget http://localhost/
     wget https://localhost/
     openssl version
