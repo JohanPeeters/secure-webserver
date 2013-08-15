@@ -29,6 +29,8 @@ rspec --format documentation spec/ciphersuites.rb
     + `rspec --format documentation spec/ciphersuites.rb`
     All tests except encryption should be failing.
 
+- concatenation of exclusion: show nginx manifest
+
 - not all properties can be specified cleanly. E.g. no CBC to protect against Lucky 13
    + edit `$cipher_string` in `/vagrant/production/modules/nginx/templates/server.conf.erb`
    + `../runpuppet.sh`
