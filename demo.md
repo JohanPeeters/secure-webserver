@@ -3,7 +3,7 @@ Demo 1: Demonstrating puppet
 
 - Bring up the machine to demonstrate without webserver
 
-` vagrant up prepuppet
+`vagrant up prepuppet`
 
 - Demonstrate the absence of the correct version of openssl, nginx or any other webserver
 
