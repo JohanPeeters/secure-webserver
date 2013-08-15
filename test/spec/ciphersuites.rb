@@ -35,6 +35,10 @@ describe "ciphersuites" do
     do_not_include{|cipher_spec| cipher_spec.encryption_bits < 128}
   end
 
+  it 'is impervious to the BEAST attack' do
+    do_not_include{|cipher_spec| cipher_spec.mode == 'CBC' and cipher_spec.protocol_version < Ciphers::CipherTable::ProtocolVersion::TLSv1_1}
+  end
+
   it 'does not support RC4 encryption' do
     do_not_include{|cipher_spec| cipher_spec.encryption_alg == 'RC4'}
   end
@@ -57,6 +61,6 @@ describe "ciphersuites" do
           puts spec.to_s
       end
     end
-    to_be_removed.should be_empty
+    to_be_removed.should be_empty, "to be removed: -" + to_be_removed.map{|spec| spec.name}.join(':-')
   end
 end
