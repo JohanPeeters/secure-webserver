@@ -12,6 +12,7 @@ Demo 1: Demonstrating puppet
     wget https://localhost/
     openssl version
     nginx -v
+    
 
 - Browse through the puppet code
 
