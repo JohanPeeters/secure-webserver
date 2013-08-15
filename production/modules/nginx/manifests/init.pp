@@ -10,7 +10,7 @@ class nginx ($version, $host){
 	$compatability = "+RC4"
 
 	$cipher_string = "ALL:$always_encrypted:$always_authenticated:$not_DES:$enc_key_at_least_128b:$not_RC4:$no_RSA_key_exchange_for_forward_secrecy:$impervious_to_Lucky_13_no_CBC:$compatability"
-
+#	$cipher_string = "ALL"
 #	$cipher_string = "ALL:COMPLEMENTOFALL"
 #	$cipher_string = "ALL:COMPLEMENTOFALL:$always_encrypted"
 #	$cipher_string = "ALL:$always_encrypted"
