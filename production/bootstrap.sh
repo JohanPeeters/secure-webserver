@@ -27,7 +27,6 @@ echo '** installing puppet modules'
 	# we need to add an apt repository.
 puppet module install puppetlabs/apt --version 1.2.0
 echo '** the standard version of openssl does not support GCM or CCM. So compile 1.0.1e from source'
-apt-get -y remove libssl-dev
 openssl_pkg_file=${ROOT_DIR}/openssl_1.0.1e-1_amd64.deb
 if [ -e $openssl_pkg_file ]; then
 	dpkg -i $openssl_pkg_file;
