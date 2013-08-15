@@ -19,12 +19,17 @@ nginx -v
 
 - Run puppet
 
-` cd /vagrant
-` ./runpuppet.sh
+```bash
+cd /vagrant
+./runpuppet.sh
+```
+
 
 - Demonstrate the presence of the correct version of openssl, nginx or any other webserver
 
-` wget http://localhost/
-` wget https://localhost/
-` openssl version
-` nginx -v
+```bash
+wget http://localhost/
+wget https://localhost/
+openssl version
+nginx -v
+```
