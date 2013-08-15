@@ -1,4 +1,4 @@
-Demo 2: cipher list
+Demo: cipher list
 ===================
 
 - show vanilla cipher list as configured after puppet run
