@@ -43,6 +43,12 @@ describe "nginx" do
     response.body.should eq(contents)
   end
 
+  it "is at least version 1.4.2" do
+    result = `nginx -v 2>&1`
+    puts "Result equals " + result
+    result.should match(/.*\/1\.4\.2/)
+  end
+
 	# fix with openssl commando : openssl s_client -port 443 -CApath /etc/ssl/certs/
   it "has a valid certificate over https" do
     uri = URI.parse("https://localhost/")
