@@ -13,5 +13,6 @@ sudo rspec spec/ca.rb
 sudo rspec spec/crt.rb
 sudo rspec spec/nginx.rb
 sudo rspec spec/ciphersuites.rb
+sudo rspec spec/nginx_config.rb
 
 popd
