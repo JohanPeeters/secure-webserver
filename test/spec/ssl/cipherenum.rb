@@ -7,7 +7,6 @@ module Ciphers
   @@port = 443
   @@accepted_ciphers = []
   @@rejected_ciphers = []
-  protocol_versions = [:SSLv3, :TLSv1, :TLSv1_1, :TLSv1_2] # Protocol versions support
 
   def self.accepted_ciphers
     @@accepted_ciphers
@@ -21,11 +20,53 @@ module Ciphers
 
     attr_reader :CIPHERS
 
+    class ProtocolVersion
+
+      attr_reader :version
+
+
+      def initialize(version)
+        @version = version
+      end
+
+      SSLv2 = new('SSLv2')
+      SSLv3 = self.new('SSLv3')
+      TLSv1 = self.new('TLSv1')
+      TLSv1_1 = self.new('TLSv1.1')
+      TLSv1_2 = self.new('TLSv1.2')
+
+      def self.select(version)
+        case version
+          when 'SSLv2'
+            SSLv2
+          when 'SSLv3'
+            SSLv3
+          when 'TLSv1'
+            TLSv1
+          when 'TLSv1.1'
+            TLSv1_1
+          when 'TLSv1.2'
+            TLSv1_2
+        end
+      end
+
+      ORDERED_LIST = ['SSLv2', 'SSLv3', 'TLSv1', 'TLSv1.1', 'TLSv1.2']
+
+      def <(other)
+        ORDERED_LIST.index(@version) < ORDERED_LIST.index(other.version)
+      end
+
+      def to_s
+        @version
+      end
+
+    end
+
     class CipherSpec
       attr_reader :name, :protocol_version, :kXchange_alg, :kXchange_bits, :authN, :encryption_alg, :encryption_bits, :MAC, :strength, :mode, :hexcode
       def initialize(spec)
         @name = spec[2]
-        @protocol_version = spec[3]
+        @protocol_version = ProtocolVersion.select(spec[3])
         kXchange_match = spec[4].match('Kx=(\w+)\(?(\d+)?\)?')
         @kXchange_alg = kXchange_match[1]
         @kXchange_bits = kXchange_match[2] ? kXchange_match[2].to_i : nil
@@ -44,9 +85,9 @@ module Ciphers
         @mode = CipherSpec::retrieve_mode(spec[0])
       end
 
-	  def to_s
-	  	return "#{protocol_version}\t#{hexcode}\t kx=#{kXchange_alg}\t kxbits=#{kXchange_bits}\tauth=#{authN}\t #{name}\tenc=#{encryption_alg}\tmode=#{mode}"
-	  end
+  	  def to_s
+	    	return "#{protocol_version}\t#{hexcode}\t kx=#{kXchange_alg}\t kxbits=#{kXchange_bits}\tauth=#{authN}\t #{name}\tenc=#{encryption_alg}\tmode=#{mode}"
+	    end
 
       private
       
