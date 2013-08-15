@@ -25,12 +25,17 @@ http {
     # http://www.openssl.org/docs/apps/ciphers.html
 
     ssl_ciphers <%= @cipher_string %>;	
+    
+    #	This header is required if you want to support HSTS	
+	add_header Strict-Transport-Security max-age=31536000;
 
     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
     		      '$status $body_bytes_sent "$http_referer" '
 		      '"$http_user_agent" "$http_x_forwarded_for"';
 
     access_log  /var/log/nginx/access.log  main;
+
+	gzip off;
 
     include /etc/nginx/sites-enabled/*.conf;
 }

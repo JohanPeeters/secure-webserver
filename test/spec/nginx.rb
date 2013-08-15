@@ -45,7 +45,6 @@ describe "nginx" do
 
   it "is at least version 1.4.2" do
     result = `nginx -v 2>&1`
-    puts "Result equals " + result
     result.should match(/.*\/1\.4\.2/)
   end
 

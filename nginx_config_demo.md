@@ -2,7 +2,14 @@ Demo: Demonstrating DevOps to ensure a safe nginx configuration
 =============================
 
 Problems covered:
-- CRIME --> disabled from nginx version 1.2.2. Updating fixes the Problems
+- CRIME --> Disable TLS compression
+- BREACH --> No practical solution, e.g. disable gzip compression?
+- Insecure renegotiation --> Only allow secure renegotiation
+- SSL stripping --> HSTS
+
+
+
+disabled from nginx version 1.2.2. Updating fixes the Problems
 - Insecure renegotiation --> standard disabled in nginx (not sure since which version)
 
 ```puppet

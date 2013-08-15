@@ -1,6 +1,5 @@
 #! /bin/bash
 
-apt-get -y remove libssl-dev
 apt-get -y install checkinstall=1.6.2-3ubuntu1
 
 pushd /tmp

@@ -13,10 +13,7 @@ server {
 #	ssl_ciphers  HIGH:!aNULL:!MD5:!DES:!ECDHE-RSA-AES256-SHA:!ECDHE-RSA-AES256-SHA;
 #	ssl_ciphers  -ALL:+HIGH:+MEDIUM:!DES:!ADH:!EXPORT:!EXP:!LOW:!aNull:!NULL:!RC2:!IDEA;
 	
-	
-#	This header is required if you want to support HSTS	
-#	add_header Strict-Transport-Security max-age=15768000;
-		
+			
 	access_log  /var/log/nginx/<%= @host %>.access.log;
 	error_log /var/log/nginx/error.log info;
 

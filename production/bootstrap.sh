@@ -21,12 +21,15 @@ echo '** installing rspec'
 gem install --version '=2.14.1' rspec --no-ri --no-rdoc
 echo '** installing puppet'
 gem install --version '= 3.2.1' puppet --no-ri --no-rdoc
+echo '** installing xml-object'
+gem install --version '= 0.9.93' xml-object --no-ri --no-rdoc
 echo '** installing puppet modules'
 	# in order to install reasonably recent versions of nginx,
 	# impervious to recent security advisories,
 	# we need to add an apt repository.
 puppet module install puppetlabs/apt --version 1.2.0
 echo '** the standard version of openssl does not support GCM or CCM. So compile 1.0.1e from source'
+apt-get -y remove libssl-dev
 openssl_pkg_file=${ROOT_DIR}/openssl_1.0.1e-1_amd64.deb
 if [ -e $openssl_pkg_file ]; then
 	dpkg -i $openssl_pkg_file;

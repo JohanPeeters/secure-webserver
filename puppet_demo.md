@@ -1,4 +1,4 @@
-Demo 1: Demonstrating puppet
+Demo: Demonstrating basic puppet
 ============================
 
 - Bring up the machine to demonstrate without webserver
