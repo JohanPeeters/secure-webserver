@@ -13,8 +13,8 @@ clear
 
 ```bash
 nginx -v
-wget http://localhost/
-wget https://localhost/
+curl http://localhost/
+curl https://localhost/
 openssl version
 ```    
 
@@ -31,8 +31,8 @@ cd /vagrant
 - Demonstrate the presence of the correct version of openssl, nginx or any other webserver
 
 ```bash
-wget http://localhost/
-wget https://localhost/
+curl http://localhost/
+curl https://localhost/
 openssl version
 nginx -v
 ```
