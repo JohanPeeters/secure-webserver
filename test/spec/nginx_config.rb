@@ -16,7 +16,7 @@ describe "nginx" do
   	output.should match(/^Compression:\s+NONE$/)
   end
   
-  it "has no support for insecure renegotiation" do
+  xit "has no support for insecure renegotiation" do
   	true.should eq false
   	# https://github.com/iSECPartners/sslyze
   end
