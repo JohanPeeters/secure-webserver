@@ -8,11 +8,11 @@ fi
 pushd $VAGRANT_BASE
 echo "** running sanity tests **"
 
-sudo rspec spec/csr.rb
-sudo rspec spec/ca.rb
-sudo rspec spec/crt.rb
-sudo rspec spec/nginx.rb
-sudo rspec spec/ciphersuites.rb
-sudo rspec spec/nginx_config.rb
+sudo rspec --format documentation spec/csr.rb
+sudo rspec --format documentation spec/ca.rb
+sudo rspec --format documentation spec/crt.rb
+sudo rspec --format documentation spec/nginx.rb
+sudo rspec --format documentation spec/ciphersuites.rb
+sudo rspec --format documentation spec/nginx_config.rb
 
 popd
