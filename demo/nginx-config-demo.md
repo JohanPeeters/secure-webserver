@@ -19,30 +19,30 @@ This header states that future requests to the domain for the next year use only
 - Disable header, see test failing.
     + remove `add_header Strict-Transport-Security max-age=31536000;` in `/vagrant/production/modules/nginx/templates/server.conf.erb`
     + `../runpuppet.sh`
-    + `rspec --format documentation spec/nginx_conf.rb`
+    + `rspec --format documentation spec/nginx_config.rb`
     + The test for HSTS should fail
 
 
-- Enable header, see test s
+- Enable header, see test succeed
     + Add `add_header Strict-Transport-Security max-age=31536000;` in `/vagrant/production/modules/nginx/templates/server.conf.erb`
     + `../runpuppet.sh`
-    + `rspec --format documentation spec/nginx_conf.rb`
+    + `rspec --format documentation spec/nginx_config.rb`
     + The test for HSTS succeeds
 
 BREACH
 ------
 
-- Disable gzip, see test failing.
+- Enable gzip, see test failing.
     + Enable `gzip on;` in `/vagrant/production/modules/nginx/templates/server.conf.erb`
     + `../runpuppet.sh`
-    + `rspec --format documentation spec/nginx_conf.rb`
+    + `rspec --format documentation spec/nginx_config.rb`
     + The test for BREACH should fail
 
 
-- Disable gzip, see test s
+- Disable gzip, see test succeed
     + Disable `gzip off;` in `/vagrant/production/modules/nginx/templates/server.conf.erb`
     + `../runpuppet.sh`
-    + `rspec --format documentation spec/nginx_conf.rb`
+    + `rspec --format documentation spec/nginx_config.rb`
     + The test for BREACH succeeds
 
 CRIME and Insecure renegotiation
