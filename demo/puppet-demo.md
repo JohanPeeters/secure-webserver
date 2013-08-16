@@ -15,7 +15,6 @@ clear
 nginx -v
 curl http://localhost/
 curl https://localhost/
-openssl version
 ```    
 
 - Browse through the puppet code
@@ -33,6 +32,5 @@ cd /vagrant
 ```bash
 curl http://localhost/
 curl https://localhost/
-openssl version
 nginx -v
 ```
