@@ -111,12 +111,16 @@ module Ciphers
   	cipher_name = spec.name
   	bits = spec.encryption_bits
   	version = spec.protocol_version
-    output = `openssl s_client -port #{@@port} -cipher #{cipher_name} -CApath /etc/ssl/certs 2>/dev/null << EOF \nGET /\nEOF`
+    output = request_welcome_page(cipher_name)
     if output.match(/^\s+Cipher\s+:\s+([\w-]+)$/) then
       @@accepted_ciphers << spec
     else
       @@rejected_ciphers << spec
     end
+  end
+
+  def self.request_welcome_page(cipher_name)
+    `openssl s_client -port #{@@port} -cipher #{cipher_name} -CApath /etc/ssl/certs 2>/dev/null << EOF \nGET /\nEOF`
   end
 
   def print_ciphers
