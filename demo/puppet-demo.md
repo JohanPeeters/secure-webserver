@@ -1,18 +1,20 @@
 Demo: Demonstrating basic puppet
 ============================
 
-- Bring up the machine to demonstrate without webserver
+- Preperation: Bring up the machine to demonstrate without webserver
 
-`vagrant up prepuppet`
+```bash
+vagrant up prepuppet
+vagrant ssh prepuppet
+clear
+```
 
 - Demonstrate the absence of the correct version of openssl, nginx or any other webserver
 
 ```bash
-vagrant ssh prepuppet
-wget http://localhost/
-wget https://localhost/
-openssl version
 nginx -v
+curl http://localhost/
+curl https://localhost/
 ```    
 
 - Browse through the puppet code
@@ -21,6 +23,7 @@ nginx -v
 
 ```bash
 cd /vagrant
+less runpuppet.sh
 ./runpuppet.sh
 ```
 
@@ -28,8 +31,7 @@ cd /vagrant
 - Demonstrate the presence of the correct version of openssl, nginx or any other webserver
 
 ```bash
-wget http://localhost/
-wget https://localhost/
-openssl version
+curl http://localhost/
+curl https://localhost/
 nginx -v
 ```
