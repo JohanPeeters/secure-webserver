@@ -31,7 +31,7 @@ class nginx ($version, $host){
 	
 	file {"/etc/nginx/nginx.conf":
 		ensure => present,
-		content => template('nginx/server.conf.erb'),
+		content => template('nginx/nginx.conf.erb'),
 		require => Package['nginx'],
 		notify => Service['nginx'],
 	}
