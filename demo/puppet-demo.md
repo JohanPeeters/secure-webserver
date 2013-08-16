@@ -12,10 +12,10 @@ clear
 - Demonstrate the absence of the correct version of openssl, nginx or any other webserver
 
 ```bash
+nginx -v
 wget http://localhost/
 wget https://localhost/
 openssl version
-nginx -v
 ```    
 
 - Browse through the puppet code
