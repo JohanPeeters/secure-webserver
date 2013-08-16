@@ -8,6 +8,6 @@ fi
 pushd $VAGRANT_BASE
 echo "** running sanity tests **"
 
-rspec --format documentation spec/*
+sudo rspec --format documentation spec/*
 
 popd
