@@ -6,6 +6,7 @@ Demo: Demonstrating basic puppet
 ```bash
 vagrant up prepuppet
 vagrant ssh prepuppet
+clear
 ```
 
 - Demonstrate the absence of the correct version of openssl, nginx or any other webserver
