@@ -24,7 +24,7 @@ http {
     # How to specify the cipher list
     # http://www.openssl.org/docs/apps/ciphers.html
 
-    ssl_ciphers <%= @cipher_string %>;	
+    ssl_ciphers <%= @cipher_list %>;	
     
     #	This header is required if you want to support HSTS	
 	add_header Strict-Transport-Security max-age=31536000;
