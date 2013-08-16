@@ -43,12 +43,12 @@ describe "ciphersuites" do
     do_not_include{|cipher_spec| cipher_spec.encryption_alg == 'RC4'}
   end
 
-  it 'is impervious to the Lucky Thirteen attack' do
+  it 'is impervious to the Lucky 13 attack' do
     do_not_include{|cipher_spec| cipher_spec.mode == 'CBC'}
   end
 
-  it 'does not support RSA key exchange to prevent problems with forward secrecy' do
-    do_not_include{|cipher_spec| cipher_spec.kXchange_alg == 'RSA'}
+  it 'does not support RSA, PSK or SRP key exchange to prevent problems with forward secrecy' do
+    do_not_include{|cipher_spec| cipher_spec.kXchange_alg == 'RSA' || cipher_spec.kXchange_alg == 'PSK' || cipher_spec.kXchange_alg == 'SRP'}
   end
 
   def do_not_include(&fn)
