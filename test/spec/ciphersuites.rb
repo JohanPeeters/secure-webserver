@@ -29,7 +29,7 @@ describe "ciphersuites" do
     do_not_include{|cipher_spec| cipher_spec.mode == 'CBC' and cipher_spec.protocol_version < Ciphers::CipherTable::ProtocolVersion::TLSv1_1}
   end
 
-  xit 'does not support RC4 encryption' do
+  it 'does not support RC4 encryption' do
     do_not_include{|cipher_spec| cipher_spec.encryption_alg == 'RC4'}
   end
 

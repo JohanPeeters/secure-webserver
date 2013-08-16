@@ -103,14 +103,19 @@ module Ciphers
 
     IANA_CIPHERS = CSV.read("spec/ssl/IANA_TLS_Cipher_suite_registry.csv")
 
-    CIPHERS =  `openssl ciphers -V -cipher ALL:COMPLEMENTOFALL:COMPLEMENTOFDEFAULT`.split(/\n/).map {|spec|spec.split}.map{|spec| Ciphers::CipherTable::CipherSpec.new(spec)} #.select{|spec| spec.mode != "NO_SUCH_CIPHER_IN_IANA"}
+    CIPHERS =  `openssl ciphers -V -cipher ALL:COMPLEMENTOFALL:COMPLEMENTOFDEFAULT`
+                .split(/\n/)
+                .map {|spec|spec.split}
+                .map{|spec| Ciphers::CipherTable::CipherSpec.new(spec)}
 
   end
 
+  def self.request_welcome_page(cipher_name)
+    `openssl s_client -port #{@@port} -cipher #{cipher_name} -CApath /etc/ssl/certs 2>/dev/null << EOF \nGET /\nEOF`
+  end
+
   def self.check_cipher(spec)
-  	cipher_name = spec.name
-  	bits = spec.encryption_bits
-  	version = spec.protocol_version
+    cipher_name = spec.name
     output = request_welcome_page(cipher_name)
     if output.match(/^\s+Cipher\s+:\s+([\w-]+)$/) then
       @@accepted_ciphers << spec
@@ -119,11 +124,11 @@ module Ciphers
     end
   end
 
-  def self.request_welcome_page(cipher_name)
-    `openssl s_client -port #{@@port} -cipher #{cipher_name} -CApath /etc/ssl/certs 2>/dev/null << EOF \nGET /\nEOF`
+  Ciphers::CipherTable::CIPHERS.each do |spec|
+    check_cipher(spec)
   end
 
-  def print_ciphers
+  def self.print_ciphers
     puts "Accepted ciphers:\n"
     accepted_ciphers.each do |spec|
       puts "A " + spec.to_s
@@ -135,10 +140,5 @@ module Ciphers
     end
   	
   end
-  
-   Ciphers::CipherTable::CIPHERS.each do |spec|
-#      puts spec.to_s
-      check_cipher(spec)
-   end
   
 end
