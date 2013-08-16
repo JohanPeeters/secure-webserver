@@ -124,6 +124,15 @@ module Ciphers
   end
 
   def print_ciphers
+    puts "Accepted ciphers:\n"
+    accepted_ciphers.each do |spec|
+      puts "A " + spec.to_s
+    end
+
+    puts "Rejected ciphers:\n"
+    rejected_ciphers.each do |spec|
+      puts spec.to_s
+    end
   	
   end
   

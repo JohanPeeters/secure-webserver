@@ -23,7 +23,6 @@ describe "nginx" do
   end
   
   it "HTTP Strict Transport Security" do
-    pending('fails unless the ')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
