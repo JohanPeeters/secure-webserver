@@ -23,6 +23,7 @@ curl https://localhost/
 
 ```bash
 cd /vagrant
+less runpuppet.sh
 ./runpuppet.sh
 ```
 
