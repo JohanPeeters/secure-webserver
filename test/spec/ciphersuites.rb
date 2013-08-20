@@ -56,12 +56,4 @@ describe "ciphersuites" do
     to_be_removed.should be_empty, "to be removed: -" + to_be_removed.map{|spec| spec.name}.join(':-')
   end
   
-  it 'supports compatible ciphers for older systems' do
-  	Ciphers::accepted_ciphers.map{|spec| spec.name}.include?(compatability_cipher).should be true
-  end
-  
-  it 'prefers safe ciphers over compatability ciphers' do
-  	output = Ciphers::request_welcome_page(compatability_cipher+":TLSv1.2")
-  	output.should_not match(/#{compatability_cipher}/)
-  end
 end

@@ -63,9 +63,10 @@ module Ciphers
     end
 
     class CipherSpec
-      attr_reader :name, :protocol_version, :kXchange_alg, :kXchange_bits, :authN, :encryption_alg, :encryption_bits, :MAC, :strength, :mode, :hexcode
+      attr_reader :name, :iana_name, :protocol_version, :kXchange_alg, :kXchange_bits, :authN, :encryption_alg, :encryption_bits, :MAC, :strength, :mode, :hexcode
       def initialize(spec)
         @name = spec[2]
+        @iana_name = CipherSpec::retrieve_iana_name(spec[0])
         @protocol_version = ProtocolVersion.select(spec[3])
         kXchange_match = spec[4].match('Kx=(\w+)\(?(\d+)?\)?')
         @kXchange_alg = kXchange_match[1]
@@ -82,21 +83,29 @@ module Ciphers
         @MAC = spec[7].match(/Mac=(\w+)/)[1]
         @strength = spec[8]
         @hexcode = spec[0]
-        @mode = CipherSpec::retrieve_mode(spec[0])
+        @mode = CipherSpec::retrieve_mode(@iana_name)
       end
 
   	  def to_s
-	    	return "#{protocol_version}\t#{hexcode}\t kx=#{kXchange_alg}\t kxbits=#{kXchange_bits}\tauth=#{authN}\t #{name}\tenc=#{encryption_alg}\tmode=#{mode}"
-	    end
+	    	return toString("\t ")
+	  end
 
+	  def toString(seperator)
+	    	return "#{protocol_version}#{seperator}#{hexcode}#{seperator}#{kXchange_alg}#{seperator}kxbits=#{kXchange_bits}#{seperator}auth=#{authN}#{seperator}#{name}#{seperator}#{iana_name}#{seperator}enc=#{encryption_alg}#{seperator}mode=#{mode}"
+	  end
+    
       private
       
-      def self.retrieve_mode(cipher_code)
+      def self.retrieve_iana_name(cipher_code)
         return 'NO_SUCH_CIPHER_IN_IANA' if cipher_code.split(',').size > 2 
         official_name = IANA_CIPHERS.select{|suite| suite[0] == cipher_code}[0][1]
+      end
+      
+      def self.retrieve_mode(official_name)
         return 'CBC' if official_name.match('CBC')
         return 'GCM' if official_name.match('GCM')
         return 'CCM' if official_name.match('CCM')
+        return 'NO_SUCH_CIPHER_IN_IANA' if official_name.match('NO_SUCH_CIPHER_IN_IANA')
       end
 
     end
@@ -141,4 +150,19 @@ module Ciphers
   	
   end
   
+  def self.find_spec(name)
+  	output = Ciphers::CipherTable::CIPHERS.select{|spec| spec.iana_name == name}
+  	if output.size != 1 then 
+  		output = Ciphers::CipherTable::CIPHERS.select{|spec| spec.name == name}
+  	    return nil if output.size != 1
+  	end
+  	return output[0]
+  end
+  
+  def self.print_cipher_def
+  		puts "Hexcode; Official name; OpenSSL name; Protocol version; Key Exchange Algoritm; Key Exchange Bit; Authentication method; Encryption Algoritm; Encryption Bits; Mode"
+  		Ciphers::CipherTable::CIPHERS.each do |spec|
+  			puts "#{spec.hexcode};#{spec.iana_name};#{spec.name};#{spec.protocol_version};#{spec.kXchange_alg};#{spec.kXchange_bits};#{spec.authN};#{spec.encryption_alg};#{spec.encryption_bits};#{spec.mode}"
+  		end
+  end
 end
