@@ -86,7 +86,7 @@ module Ciphers
       end
 
   	  def to_s
-	    	return "#{protocol_version}\t#{hexcode}\t kx=#{kXchange_alg}\t kxbits=#{kXchange_bits}\tauth=#{authN}\t #{name}\tenc=#{encryption_alg}\tmode=#{mode}"
+	    	return "#{protocol_version}\t#{hexcode}\t kx=#{kXchange_alg}  \tenc=#{encryption_alg}   \tmode=#{mode}   \tauth=#{authN}\t #{name}"
 	    end
 
       private
@@ -131,13 +131,15 @@ module Ciphers
   def self.print_ciphers
     puts "Accepted ciphers:\n"
     accepted_ciphers.each do |spec|
-      puts "A " + spec.to_s
+      puts spec.to_s
     end
 
+=begin
     puts "Rejected ciphers:\n"
     rejected_ciphers.each do |spec|
       puts spec.to_s
     end
+=end
   	
   end
   
