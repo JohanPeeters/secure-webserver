@@ -5,7 +5,7 @@ require "./spec/ssl/cipherenum"
 
 uri = URI.parse("https://localhost/")
 
-describe "nginx" do
+describe "nginx_config" do
 
   it "is at least version 1.4.2" do
     result = `nginx -v 2>&1`
