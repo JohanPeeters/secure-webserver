@@ -4,6 +4,8 @@ require "uri"
 require "./spec/ssl/cipherenum"
 
 describe "ciphersuites" do
+	
+  compatability_cipher = 'ECDHE-RSA-RC4-SHA'
 
   it 'does not support unencrypted connections' do
     do_not_include{|cipher_spec| cipher_spec.encryption_alg == 'None'}
@@ -52,5 +54,14 @@ describe "ciphersuites" do
       end
     end
     to_be_removed.should be_empty, "to be removed: -" + to_be_removed.map{|spec| spec.name}.join(':-')
+  end
+  
+  it 'supports compatible ciphers for older systems' do
+  	Ciphers::accepted_ciphers.map{|spec| spec.name}.include?(compatability_cipher).should be true
+  end
+  
+  it 'prefers safe ciphers over compatability ciphers' do
+  	output = Ciphers::request_welcome_page(compatability_cipher+":TLSv1.2")
+  	output.should_not match(/#{compatability_cipher}/)
   end
 end
