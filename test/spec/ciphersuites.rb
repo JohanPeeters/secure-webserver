@@ -53,4 +53,9 @@ describe "ciphersuites" do
     end
     to_be_removed.should be_empty, "to be removed: -" + to_be_removed.map{|spec| spec.name}.join(':-')
   end
+  
+  it 'supports compatible ciphers for older systems' do
+  	Ciphers::accepted_ciphers.map{|spec| spec.name}.include?('ECDHE-RSA-RC4-SHA').should be true
+  end
+  
 end
