@@ -6,14 +6,8 @@ Vagrant.configure("2") do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "Ubuntu-12.04.2-64bit-nocm"
 
-
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210-nocm.box"
-
+#  
   
   # TODO: when we are ready to start testing the web server, we have to do this
 
@@ -46,6 +40,14 @@ Vagrant.configure("2") do |config|
   # 
   
   config.vm.define :prepuppet do |server|
+      # Every Vagrant virtual environment requires a box to build off of.
+      server.vm.box = "Ubuntu-12.04.2-64bit-nocm"
+
+
+  	  # The url from where the 'config.vm.box' box will be fetched if it
+  	  # doesn't already exist on the user's system.
+  	  server.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210-nocm.box"
+
       server.vm.hostname = "ubuntu-12-prepuppet"
         
       # Create a forwarded port mapping which allows access to a specific port
@@ -65,6 +67,15 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define :webserver do |server|
+      # Every Vagrant virtual environment requires a box to build off of.
+      server.vm.box = "Ubuntu-12.04.2-64bit-nocm"
+
+
+  	  # The url from where the 'config.vm.box' box will be fetched if it
+  	  # doesn't already exist on the user's system.
+  	  server.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210-nocm.box"
+
+  
       server.vm.hostname = "ubuntu-12"
       
       # Create a forwarded port mapping which allows access to a specific port
@@ -95,7 +106,43 @@ Vagrant.configure("2") do |config|
       
   end
 
+  config.vm.define :centos do |server|
+      # Every Vagrant virtual environment requires a box to build off of.
+      server.vm.box = "Centos-64-x64-vbox4210-nocm"
+
+  	  # The url from where the 'config.vm.box' box will be fetched if it
+  	  # doesn't already exist on the user's system.
+  	  server.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box"
+
   
+      server.vm.hostname = "centos"
+      
+      # Create a forwarded port mapping which allows access to a specific port
+	  # within the machine from a port on the host machine. In the example below,
+	  # accessing "localhost:8080" will access port 80 on the guest machine.
+	  server.vm.network :forwarded_port, guest: 80, host: 7080
+	  server.vm.network :forwarded_port, guest: 443, host: 7443
+      
+  end
+
+  config.vm.define :debian do |server|
+      # Every Vagrant virtual environment requires a box to build off of.
+      server.vm.box = "Debian-70rc1-x64-vbox4210-nocm"
+
+  	  # The url from where the 'config.vm.box' box will be fetched if it
+  	  # doesn't already exist on the user's system.
+  	  server.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210-nocm.box"
+
+  
+      server.vm.hostname = "debian"
+      
+      # Create a forwarded port mapping which allows access to a specific port
+	  # within the machine from a port on the host machine. In the example below,
+	  # accessing "localhost:8080" will access port 80 on the guest machine.
+	  server.vm.network :forwarded_port, guest: 80, host: 6080
+	  server.vm.network :forwarded_port, guest: 443, host: 6443
+      
+  end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
