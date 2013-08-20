@@ -46,7 +46,7 @@ describe "ciphersuites" do
   def do_not_include(&fn)
     specs_to_avoid = Ciphers::CipherTable::CIPHERS.select(&fn)
 
-    to_be_removed = Ciphers::accepted_ciphers.select{|spec| specs_to_avoid.include?(spec)}
+    to_be_removed = Ciphers::accepted_ciphers & specs_to_avoid
     if !to_be_removed.empty? then
       puts "specs that need to be removed: "
       to_be_removed.each do |spec|
