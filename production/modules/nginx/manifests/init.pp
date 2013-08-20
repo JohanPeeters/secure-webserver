@@ -12,6 +12,7 @@ class nginx ($version, $host){
 	$compatibility = "ECDHE-RSA-RC4-SHA"
 
 #	$cipher_list = "ALL:$always_encrypted:$always_authenticated:$not_DES:$enc_key_at_least_128b:$impervious_to_BEAST:$not_RC4:$forward_secrecy:$impervious_to_Lucky_13_no_CBC"
+#	$cipher_list = "ALL:$always_encrypted:$always_authenticated:$not_DES:$enc_key_at_least_128b:$impervious_to_BEAST:$not_RC4:$impervious_to_Lucky_13_no_CBC"
 	$cipher_list = "ALL:$always_encrypted:$always_authenticated:$not_DES:$enc_key_at_least_128b:$impervious_to_BEAST:$not_RC4:$forward_secrecy:$impervious_to_Lucky_13_no_CBC:$compatibility"
 #	$cipher_list = "ALL"
 #	$cipher_list = "ALL:COMPLEMENTOFALL"

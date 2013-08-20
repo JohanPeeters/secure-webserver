@@ -87,12 +87,8 @@ module Ciphers
       end
 
   	  def to_s
-	    	return toString("\t ")
-	  end
-
-	  def toString(seperator)
-	    	return "#{protocol_version}#{seperator}#{hexcode}#{seperator}#{kXchange_alg}#{seperator}kxbits=#{kXchange_bits}#{seperator}auth=#{authN}#{seperator}#{name}#{seperator}#{iana_name}#{seperator}enc=#{encryption_alg}#{seperator}mode=#{mode}"
-	  end
+	    	return "#{protocol_version}\t#{hexcode}\t kx=#{kXchange_alg}  \tenc=#{encryption_alg}   \tmode=#{mode}   \tauth=#{authN}\t #{name}"
+	    end
     
       private
       
@@ -140,13 +136,15 @@ module Ciphers
   def self.print_ciphers
     puts "Accepted ciphers:\n"
     accepted_ciphers.each do |spec|
-      puts "A " + spec.to_s
+      puts spec.to_s
     end
 
+=begin
     puts "Rejected ciphers:\n"
     rejected_ciphers.each do |spec|
       puts spec.to_s
     end
+=end
   	
   end
   
