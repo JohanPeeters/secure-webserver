@@ -7,6 +7,8 @@ uri = URI.parse("https://localhost/")
 
 describe "nginx_config" do
 
+  compatability_cipher = 'ECDHE-RSA-RC4-SHA'
+
   it "is at least version 1.4.2" do
     result = `nginx -v 2>&1`
     result.should match(/.*\/1\.4\.2/)
@@ -22,7 +24,7 @@ describe "nginx_config" do
   	# https://github.com/iSECPartners/sslyze
   end
   
-  it "HTTP Strict Transport Security" do
+  it "ensures HTTP Strict Transport Security" do
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -51,5 +53,14 @@ describe "nginx_config" do
 	    compression.should match(/^identity$/)
     end
   end
+
+  it 'prefers safe ciphers over compatability ciphers' do
+  	output = Ciphers::request_welcome_page(compatability_cipher+":TLSv1.2")
+  	output.should_not match(/#{compatability_cipher}/)
+  	output = Ciphers::request_welcome_page("TLSv1.2:#{compatability_cipher}")
+  	output.should_not match(/#{compatability_cipher}/)
+
+  end
+
 
 end
