@@ -3,6 +3,7 @@ Demo: Demonstrating DevOps to ensure a safe nginx configuration
 
 SSL stripping
 ------
+
 The solution is using a web security policy that obligates HTTPS, called HTTP Strict Transport Security (HSTS). This security policy
 status that user agents complying should do the following:
 - Automatically turn any insecure links referencing the web application into secure links. (For instance, http://example.com/some/page/ will be modified to https://example.com/some/page/ before accessing the server.)
