@@ -28,7 +28,8 @@ describe "ciphersuites" do
   end
 
   it 'is impervious to the BEAST attack' do
-    do_not_include{|cipher_spec| cipher_spec.mode == 'CBC' and cipher_spec.protocol_version < Ciphers::CipherTable::ProtocolVersion::TLSv1_1}
+    do_not_include{|cipher_spec| cipher_spec.mode == 'CBC' and
+        cipher_spec.protocol_version < Ciphers::CipherTable::ProtocolVersion::TLSv1_1}
   end
 
   xit 'does not support RC4 encryption' do
@@ -40,7 +41,9 @@ describe "ciphersuites" do
   end
 
   it 'does not support RSA, PSK or SRP key exchange to prevent problems with forward secrecy' do
-    do_not_include{|cipher_spec| cipher_spec.kXchange_alg == 'RSA' || cipher_spec.kXchange_alg == 'PSK' || cipher_spec.kXchange_alg == 'SRP'}
+    do_not_include{|cipher_spec| cipher_spec.kXchange_alg == 'RSA' ||
+        cipher_spec.kXchange_alg == 'PSK' ||
+        cipher_spec.kXchange_alg == 'SRP'}
   end
 
   def do_not_include(&fn)
