@@ -17,30 +17,50 @@ This header states that future requests to the domain for the next year use only
 
 
 - Disable header, see test failing.
-    + remove `add_header Strict-Transport-Security max-age=31536000;` in `/vagrant/production/modules/nginx/templates/server.conf.erb`
+    + remove `add_header Strict-Transport-Security max-age=31536000;` in `/vagrant/production/modules/nginx/templates/nginx.conf.erb`
     + `../runpuppet.sh`
     + `rspec --format documentation spec/nginx_config.rb`
     + The test for HSTS should fail
 
 
 - Enable header, see test succeed
-    + Add `add_header Strict-Transport-Security max-age=31536000;` in `/vagrant/production/modules/nginx/templates/server.conf.erb`
+    + Add `add_header Strict-Transport-Security max-age=31536000;` in `/vagrant/production/modules/nginx/templates/nginx.conf.erb`
     + `../runpuppet.sh`
     + `rspec --format documentation spec/nginx_config.rb`
     + The test for HSTS succeeds
+
+Ordering of ciphers for compatibility
+------
+
+Most browsers (at least Apache and Nginx) have an option to prefer the order of ciphers of the server 
+over the order given by the client. For nginx the option is:
+
+
+- Disable option, see test failing.
+    + remove `ssl_prefer_server_ciphers on;` in `/vagrant/production/modules/nginx/templates/nginx.conf.erb`
+    + `../runpuppet.sh`
+    + `rspec --format documentation spec/nginx_config.rb`
+    + The test for order should fail
+
+
+- Enable header, see test succeed
+    + Add `ssl_prefer_server_ciphers on;` in `/vagrant/production/modules/nginx/templates/nginx.conf.erb`
+    + `../runpuppet.sh`
+    + `rspec --format documentation spec/nginx_config.rb`
+    + The test succeeds
 
 BREACH
 ------
 
 - Enable gzip, see test failing.
-    + Enable `gzip on;` in `/vagrant/production/modules/nginx/templates/server.conf.erb`
+    + Enable `gzip on;` in `/vagrant/production/modules/nginx/templates/nginx.conf.erb`
     + `../runpuppet.sh`
     + `rspec --format documentation spec/nginx_config.rb`
     + The test for BREACH should fail
 
 
 - Disable gzip, see test succeed
-    + Disable `gzip off;` in `/vagrant/production/modules/nginx/templates/server.conf.erb`
+    + Disable `gzip off;` in `/vagrant/production/modules/nginx/templates/nginx.conf.erb`
     + `../runpuppet.sh`
     + `rspec --format documentation spec/nginx_config.rb`
     + The test for BREACH succeeds
