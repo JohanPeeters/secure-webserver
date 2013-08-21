@@ -120,20 +120,6 @@ module Ciphers
     `openssl s_client -port #{@@port} -cipher #{cipher_name} -CApath /etc/ssl/certs 2>/dev/null << EOF \nGET /\nEOF`
   end
 
-  def self.check_cipher(spec)
-    cipher_name = spec.name
-    output = request_welcome_page(cipher_name)
-    if output.match(/^\s+Cipher\s+:\s+([\w-]+)$/) then
-      @@accepted_ciphers << spec
-    else
-      @@rejected_ciphers << spec
-    end
-  end
-
-  Ciphers::CipherTable::CIPHERS.each do |spec|
-    check_cipher(spec)
-  end
-
   def self.print_ciphers
     puts "Accepted ciphers:\n"
     accepted_ciphers.each do |spec|
@@ -163,5 +149,19 @@ module Ciphers
     Ciphers::CipherTable::CIPHERS.each do |spec|
       puts "#{spec.hexcode};#{spec.iana_name};#{spec.name};#{spec.protocol_version};#{spec.kXchange_alg};#{spec.kXchange_bits};#{spec.authN};#{spec.encryption_alg};#{spec.encryption_bits};#{spec.mode}"
     end
+  end
+
+  def self.check_cipher(spec)
+    cipher_name = spec.name
+    output = request_welcome_page(cipher_name)
+    if output.match(/^\s+Cipher\s+:\s+([\w-]+)$/) then
+      @@accepted_ciphers << spec
+    else
+      @@rejected_ciphers << spec
+    end
+  end
+
+  Ciphers::CipherTable::CIPHERS.each do |spec|
+    check_cipher(spec)
   end
 end
