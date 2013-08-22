@@ -5,8 +5,8 @@ This github repository contains a demonstration of setting up a HTTPS server wit
 
 
 This repository contains:
-* [Vagrantfile](Vagrant definition of the virtual machines). This includes a set of scripts to get correct version of software on your machine (including puppet and openssl).
-* [production/modules](Puppet for configuration of an HTTPS server). This puppet module could also be uploaded to a server and be run independently of Vagrant.
+* [Vagrant definition of the virtual machines](Vagrantfile). This includes a set of scripts to get correct version of software on your machine (including puppet and openssl).
+* (production/modules)[Puppet for configuration of an HTTPS server]. This puppet module could also be uploaded to a server and be run independently of Vagrant.
 * [production/bootstrap.sh](a script for installing Puppet on the Vagrant basebox) as well as a couple of other things that we found hard to install with Puppet. We would like to whittle this down in the future.
 * [production/install_openssl.sh](a script to compile OpenSSL from source and turn it into a .deb package). This takes a lot of time the first time the script is run in your environment. The package is cached, however, so the next time, it is a lot faster.
 * [production/install_ruby-2.sh](see above, but for Ruby).
