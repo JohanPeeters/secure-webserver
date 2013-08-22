@@ -1,12 +1,16 @@
 secure-webserver
 ================
 
-This github repository contains a demonstration of setting up a HTTPS server with puppet. 
+This github repository contains a demonstration of setting up a HTTPS server with puppet. This is our experimentation environment that is used in the context of a talk at OWASP AppSec Research EU (https://appsec.eu). The presentation can be found at:
+
+
+
 
 This repository contains:
 * Vagrant definition of the virtual machine setup to play with this setup. This includes a set of scripts to get correct version of software on your machine (including puppet and openssl).
 * Puppet for configuration of whole HTTPS server
 * rspec tests for testing if the 
+
 
 
 Prerequisites
