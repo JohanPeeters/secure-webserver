@@ -40,7 +40,7 @@ Using the environment (webserver)
 
 * Get on the virtual machine by running `vagrant ssh webserver`.
 
-* A great way to get to know the VMs is to run through the demo's under [demo/](demo/)
+* A great way to get to know the VMs is to run through the demo's:
  * Basic puppet run [demo/puppet-demo.md](demo/puppet-demo.md)
  * Cipher list selection demo [demo/cipherlist-demo.md](demo/cipherlist-demo.md)
  * Nginx configuration demo [demo/nginx-config-demo.md](demo/nginx-config-demo.md)
