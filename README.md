@@ -1,12 +1,20 @@
 secure-webserver
 ================
 
-Installation scripts to set up a secure web server.
-Installation scripts are provided as Puppet modules. There is also a Vagrantfile so that you can use vagrant while you are tweaking the installation.
+This github repository contains a demonstration of setting up a HTTPS server with puppet. 
+
+This repository contains:
+* Vagrant definition of the virtual machine setup to play with this setup. This includes a set of scripts to get correct version of software on your machine (including puppet and openssl).
+* Puppet for configuration of whole HTTPS server
+* rspec tests for testing if the 
+
 
 Prerequisites
 -------------
 
+Before starting your experimentation with this you at least need
+
++ Git
 + Vagrant
 + VirtualBox
 
