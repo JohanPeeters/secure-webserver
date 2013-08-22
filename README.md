@@ -6,16 +6,16 @@ This github repository contains a demonstration of setting up a HTTPS server wit
 
 This repository contains:
 * [Vagrant definition of the virtual machines](Vagrantfile). This includes a set of scripts to get correct version of software on your machine (including puppet and openssl).
-* (production/modules)[Puppet for configuration of an HTTPS server]. This puppet module could also be uploaded to a server and be run independently of Vagrant.
-* [production/bootstrap.sh](a script for installing Puppet on the Vagrant basebox) as well as a couple of other things that we found hard to install with Puppet. We would like to whittle this down in the future.
-* [production/install_openssl.sh](a script to compile OpenSSL from source and turn it into a .deb package). This takes a lot of time the first time the script is run in your environment. The package is cached, however, so the next time, it is a lot faster.
-* [production/install_ruby-2.sh](see above, but for Ruby).
-* [production/prepare-certificate-request.sh](a script to construct a certificate request). The resulting certificate request needs to be sent to a CA for signing if you want a public HTTPS site.
-* [test/spec](rspec tests) that verify if the server configuration corresponds to expectations. 
-* [ca](scripts to do certificate hocus-pocus) inevitable when testing HTTPS configurations.
-* [demo](scripted demo's) showing off some of the features of the repo.
-* [runpuppet.sh](a simple script to invoke puppet) - saves a lot of typing.
-* [sanity-test.sh](a simple script to run the tests) - also to save key strokes.
+* [Puppet for configuration of an HTTPS server](production/modules). This puppet module could also be uploaded to a server and be run independently of Vagrant.
+* [A script for installing Puppet on the Vagrant basebox](production/bootstrap.sh) as well as a couple of other things that we found hard to install with Puppet. We would like to whittle this down in the future.
+* [A script to compile OpenSSL from source and turn it into a .deb package](production/install_openssl.sh). This takes a lot of time the first time the script is run in your environment. The package is cached, however, so the next time, it is a lot faster.
+* [See above, but for Ruby](production/install_ruby-2.sh).
+* [A script to construct a certificate request](production/prepare-certificate-request.sh). The resulting certificate request needs to be sent to a CA for signing if you want a public HTTPS site.
+* [rspec tests](test/spec) that verify if the server configuration corresponds to expectations. 
+* [Scripts to do certificate hocus-pocus](ca) inevitable when testing HTTPS configurations.
+* [Scripted demo's](demo) showing off some of the features of the repo.
+* [A simple script to invoke puppet](runpuppet.sh) - saves a lot of typing.
+* [A simple script to run the tests](sanity-test.sh) - also to save key strokes.
 
 
 Prerequisites
