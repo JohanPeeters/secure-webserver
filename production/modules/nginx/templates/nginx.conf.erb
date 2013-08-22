@@ -37,6 +37,7 @@ http {
 
     access_log  /var/log/nginx/access.log  main;
 
+	# Against BREACH
 	gzip off;
 
     include /etc/nginx/sites-enabled/*.conf;

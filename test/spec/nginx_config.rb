@@ -7,7 +7,7 @@ uri = URI.parse("https://localhost/")
 
 describe "nginx_config" do
 
-  compatability_cipher = 'ECDHE-RSA-RC4-SHA'
+  
 
   it "is at least version 1.4.2" do
     result = `nginx -v 2>&1`
@@ -55,7 +55,9 @@ describe "nginx_config" do
   end
 
   it 'prefers safe ciphers over compatability ciphers' do
-  	output = Ciphers::request_welcome_page(compatability_cipher+":TLSv1.2")
+  	compatability_cipher = 'ECDHE-RSA-RC4-SHA'
+  
+  	output = Ciphers::request_welcome_page("#{compatability_cipher}:TLSv1.2")
   	output.should_not match(/#{compatability_cipher}/)
   	output = Ciphers::request_welcome_page("TLSv1.2:#{compatability_cipher}")
   	output.should_not match(/#{compatability_cipher}/)
