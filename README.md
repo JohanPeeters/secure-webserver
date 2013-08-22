@@ -1,9 +1,7 @@
 secure-webserver
 ================
 
-This github repository contains a demonstration of setting up a HTTPS server with puppet. This is our experimentation environment that is used in the context of a talk at OWASP AppSec Research EU (https://appsec.eu). The presentation can be found at [google docs](https://docs.google.com/presentation/d/18SGzBhIrOdOmdgiox4gKUNuaLNpYZuFRFnhozRgw5fE/pub?start=false&loop=false&delayms=3000)
-
-
+This github repository contains a demonstration of setting up a HTTPS server with puppet. This is our experimentation environment that is used in the context of a talk at OWASP AppSec Research EU (https://appsec.eu). The presentation can be found at [google docs](https://docs.google.com/presentation/d/18SGzBhIrOdOmdgiox4gKUNuaLNpYZuFRFnhozRgw5fE/pub?start=false&loop=false&delayms=3000).
 
 
 This repository contains:
