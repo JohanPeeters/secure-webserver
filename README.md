@@ -41,10 +41,10 @@ Using the environment (webserver)
 * Get on the virtual machine by running `vagrant ssh webserver`.
 
 * A great way to get to know the VMs is to run through the demo's under [demo/](demo/)
-** Basic puppet run [demo/puppet-demo.md](demo/puppet-demo.md)
-** Cipher list selection demo [demo/cipherlist-demo.md](demo/cipherlist-demo.md)
-** Nginx configuration demo [demo/nginx-config-demo.md](demo/nginx-config-demo.md)
-** Vagrant demo [demo/vagrant.md](demo/vagrant.md)
+ * Basic puppet run [demo/puppet-demo.md](demo/puppet-demo.md)
+ * Cipher list selection demo [demo/cipherlist-demo.md](demo/cipherlist-demo.md)
+ * Nginx configuration demo [demo/nginx-config-demo.md](demo/nginx-config-demo.md)
+ * Vagrant demo [demo/vagrant.md](demo/vagrant.md)
 
 
 * There is also some provision for manual tests; on the host, port 8080 is forwarded to port 80 on the guest and port 8443 to 443 for webserver. Hence the `http://localhost:8080` and `https://localhost:8443` base URLs can be used in a browser on the host.
