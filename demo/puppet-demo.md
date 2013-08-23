@@ -1,7 +1,7 @@
 Demo: Demonstrating basic puppet
 ============================
 
-- Preperation: Bring up the machine to demonstrate without webserver
+Preperation: Bring up the machine to demonstrate without webserver
 
 ```bash
 vagrant up prepuppet
@@ -34,4 +34,5 @@ less runpuppet.sh
 curl http://localhost/
 curl https://localhost/
 nginx -v
+sudo service nginx status
 ```
