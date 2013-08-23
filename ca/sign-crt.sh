@@ -11,7 +11,7 @@ echo "Regenerating the index, to decouple each certificate generated"
 rm index.txt
 touch index.txt
 
-echo "Signing the key"
+echo "Signing the server key"
 openssl ca -config openssl.cnf \
 	-days 365 \
 	-in $CSR \
