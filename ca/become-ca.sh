@@ -29,7 +29,7 @@ echo "*conversion to PEM for easy use with all kinds of tools"
 openssl x509 -in /vagrant/ca/ca_cert.crt -out /vagrant/ca/ca_cert.der -outform DER
 openssl x509 -inform der -in /vagrant/ca/ca_cert.der -out /vagrant/ca/ca_cert.pem
 
-echo "*making ca certificate available on test virtual machine"
+echo "*making ca certificate available on test virtual machine (to enable certificate verification)"
 cp /vagrant/ca/ca_cert.pem /etc/ssl/certs
 # c_rehash generates a symbolic link for all pem files in the directory using their hash value
 c_rehash /etc/ssl/certs
