@@ -7,11 +7,11 @@ if [ -n "$1" ]; then
 	CSR="$1";
 fi
 
-echo "Regenerating the index, to decouple each certificate generated"
+echo "*Regenerating the index, to decouple each certificate generated"
 rm index.txt
 touch index.txt
 
-echo "Signing the server key"
+echo "*Signing the server key"
 openssl ca -config openssl.cnf \
 	-days 365 \
 	-in $CSR \
