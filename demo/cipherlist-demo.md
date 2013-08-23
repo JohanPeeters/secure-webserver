@@ -9,6 +9,8 @@ vagrant ssh webserver
 clear
 ```
 
+Demo steps:
+
 - show vanilla cipher list as configured after puppet run
 
 - run ciphersuite test
