@@ -1,6 +1,14 @@
 Demo: cipher list
 ===================
 
+Preperation: First run the [puppet demo](puppet-demo.md), or bring up the virtual machine:
+
+```bash
+vagrant up webserver
+vagrant ssh webserver
+clear
+```
+
 - show vanilla cipher list as configured after puppet run
 
 - run ciphersuite test
