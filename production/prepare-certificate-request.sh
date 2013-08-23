@@ -1,14 +1,19 @@
-echo "** Generating private key"
+echo "****** Generate a private key and a certificate request ******"
+
+
 
 if [ "$1" != "" ]; then
 	HOSTNAME="$1"
 else
 	HOSTNAME=localhost
 fi
+
+
 VALIDITY_PERIOD=365
 CERT_LOCATION=/etc/ssl/certs
 KEY_LOCATION=/etc/ssl/private
 
+echo "*Simple protection of the key"
 #For securing the key
 umask -S u=rw,go=
 mkdir -p $KEY_LOCATION
@@ -16,6 +21,7 @@ mkdir -p $KEY_LOCATION
 #chgrp root private/
 #chmod go-rw private
 
+echo "*Generating a private key"
 openssl genpkey -algorithm rsa \
 	-out $KEY_LOCATION/keys.key \
 	-pkeyopt rsa_keygen_bits:2048 \
@@ -24,6 +30,7 @@ openssl genpkey -algorithm rsa \
 #Setting back the default settings
 umask 0002
 
+echo "*Generating a certificate request"
 openssl req -new -subj "/CN=$HOSTNAME/" \
 	-days $VALIDITY_PERIOD \
 	-key $KEY_LOCATION/keys.key \
